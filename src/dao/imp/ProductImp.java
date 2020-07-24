@@ -1,36 +1,41 @@
 package dao.imp;
 
-import dao.ProductCategoryDao;
-import pojo.ProductCategory;
+import dao.ProductDao;
+import pojo.Product;
 import util.BaseDao;
 import util.Page;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductCategoryImp implements ProductCategoryDao {
+public class ProductImp implements ProductDao {
     //获取显示列表
     @Override
     public List getshowlist(Page page) throws Exception {
         List list=new ArrayList();
-        String sql="SELECT a.id,a.name ,b.name AS parentname ,a.parentId ,a.type  FROM easybuy_product_category AS a  LEFT JOIN  easybuy_product_category AS b ON b.id=a.parentId ORDER BY parentId limit ?,?";
+        String sql="SELECT `id`,`name`,`description`,`price`,`stock`,`categoryLevel1Id`,`categoryLevel2Id`,`categoryLevel3Id`," +
+                "`fileName`,`isDelete` FROM `easybuy_product` ORDER BY `id` limit ?,?";
         List<Object> objects = new ArrayList<Object>();
         objects.add(page.getPageSize()*(page.getPageNo()-1));
         objects.add(page.getPageSize());
         BaseDao baseDao = new BaseDao();
         ResultSet rs= baseDao.executeQuery(sql,objects.toArray());
-        ProductCategory category;
+        Product product;
         while (rs.next())
         {
-            category=new ProductCategory();
-            category.setId(rs.getInt("id"));
-            category.setName(rs.getString("name"));
-            category.setParentId(rs.getInt("parentId"));
-            category.setParentName(rs.getString("parentName"));
-            category.setType(rs.getInt("type"));
-            list.add(category);
+            product=new Product();
+            product.setId(rs.getInt("id"));
+            product.setName(rs.getString("name"));
+            product.setDescription(rs.getString("description"));
+            product.setPrice(rs.getFloat("price"));
+            product.setStock(rs.getInt("stock"));
+            product.setCategoryLevel1Id(rs.getInt("categoryLevel1Id"));
+            product.setCategoryLevel2Id(rs.getInt("categoryLevel2Id"));
+            product.setCategoryLevel3Id(rs.getInt("categoryLevel3Id"));
+            product.setFileName(rs.getString("fileName"));
+            product.setIsDelete(rs.getInt("isDelete"));
+            list.add(product);
         }
         return  list;
     }
@@ -39,7 +44,7 @@ public class ProductCategoryImp implements ProductCategoryDao {
     //获取总记录数
     @Override
     public int getCount(){
-        String sql="SELECT COUNT(1) FROM easybuy_product_category";
+        String sql="SELECT COUNT(1) FROM easybuy_product";
         List<Object> o=new ArrayList<>();
         BaseDao base=new BaseDao();
         ResultSet rs= base.executeQuery(sql);
@@ -56,7 +61,7 @@ public class ProductCategoryImp implements ProductCategoryDao {
 
     //添加商品分类
     @Override
-    public int insertProductCategory(List<Object> objects ){
+    public int insertProduct(List<Object> objects ){
         int i=0;
         BaseDao baseDao=new BaseDao();
         String sql="insert easybuy_product_category (type,name,parentId)values( ?,?,?)";
@@ -73,9 +78,10 @@ public class ProductCategoryImp implements ProductCategoryDao {
     public int getid(String name) throws SQLException {
         int i=0;
         BaseDao baseDao = new BaseDao();
-        String a = "SELECT id FROM easybuy_product_category WHERE name='";
-        a+=name+"'";
-        ResultSet rs = baseDao.executeQuery(a);
+        String sql = "SELECT id FROM easybuy_product WHERE name=?";
+        List<Object> objects = new ArrayList<Object>();
+        objects.add(name);
+        ResultSet rs = baseDao.executeQuery(sql,objects.toArray());
         try{
             if(rs!=null){
                 rs.next();
@@ -90,13 +96,13 @@ public class ProductCategoryImp implements ProductCategoryDao {
 
     //根据ID删除
     @Override
-    public int deleteProductCategory(int id){
+    public int deleteProduct(int id){
         int i=0;
         BaseDao baseDao=new BaseDao();
-        String sql="DELETE FROM easybuy_product_category where id =";
-        sql+=id;
-        i=baseDao.executeUpdate(sql);
+        String sql="DELETE FROM easybuy_product where id =?";
+        List<Object> objects = new ArrayList<Object>();
+        objects.add(id);
+        i=baseDao.executeUpdate(sql,objects.toArray());
         return i;
     }
 }
-

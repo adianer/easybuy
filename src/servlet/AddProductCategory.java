@@ -13,6 +13,12 @@ import java.util.List;
 
 @WebServlet("/add")
 public class AddProductCategory extends HttpServlet {
+    public static ProductCategoryservies productCategoryservies;
+    @Override
+    public void init() throws ServletException {
+        productCategoryservies=new ProductCategoryservies();
+    }
+
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
@@ -28,7 +34,6 @@ public class AddProductCategory extends HttpServlet {
         objects.add(request.getParameter("name"));
         String parname=request.getParameter("parname");
         int i=0;
-        ProductCategoryservies productCategoryservies=new ProductCategoryservies();
         i=productCategoryservies.add(objects, parname);;
         response.getOutputStream().print(i);
     }

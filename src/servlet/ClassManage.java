@@ -14,6 +14,12 @@ import java.util.List;
 
 @WebServlet("/ClassManage")
 public class ClassManage  extends HttpServlet {
+    public static ProductCategoryservies productCategoryservies;
+    @Override
+    public void init() throws ServletException {
+        productCategoryservies=new ProductCategoryservies();
+    }
+
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
@@ -26,9 +32,8 @@ public class ClassManage  extends HttpServlet {
         response.setContentType("text/html");
         request.setCharacterEncoding("utf-8");
         if (request.getSession().getAttribute("user")!=null){
-            ProductCategoryservies productCategoryservies =new ProductCategoryservies();
-            int num=0;
-            if(Integer.parseInt(request.getParameter("currentPage"))!=0) {
+            int num=1;
+            if(request.getParameter("currentPage")!=null) {
                 num = Integer.parseInt(request.getParameter("currentPage"));
             }
             try {

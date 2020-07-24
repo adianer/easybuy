@@ -200,8 +200,8 @@
                 <div class="left_m">
                 <div class="left_m_t t_bg2">商品管理</div>
                 <ul>
-                    <li><a href="/ClassManage?currentPage=0">分类管理</a></li>
-                    <li><a href="http://www.asuk.top/EasyBuy_war/admin/product?action=index">商品管理</a></li>
+                    <li><a href="/ClassManage?currentPage=1">分类管理</a></li>
+                    <li><a href="/ProductManage?currentPage=1">商品管理</a></li>
                     <li><a href="http://www.asuk.top/EasyBuy_war/admin/product?action=toAddProduct">商品上架</a></li>
                 </ul>
             </div>
@@ -253,24 +253,50 @@
             </script>
 
             <div class="pages">
-                    <a href="/ClassManage?currentPage=0" class="p_pre">首页</a>
-                    <a href="/ClassManage?currentPage=0">1</a>
-                    <a href="/ClassManage?currentPage=1">2</a>
-                    <a href="/ClassManage?currentPage=2">3</a>
-                    <a href="/ClassManage?currentPage=3">4</a>
-                    <a href="/ClassManage?currentPage=2" class="p_pre">下一页</a>
-                    <a href="/ClassManage?currentPage=5" class="p_pre">尾页</a>
-                </div>
+                <c:choose>
+                    <c:when test="${page.pageCount <= 4}">
+                        <c:set var="begin" value="1"/>
+                        <c:set var="end" value="${page.pageCount}"/>
+                    </c:when>
+                    <%--页数超过了6页--%>
+                    <c:otherwise>
+                        <c:set var="begin" value="${page.pageNo-1}"/>
+                        <c:set var="end" value="${page.pageNo+2}"/>
+                        <%--如果begin减1后为0,设置起始页为1,最大页为6--%>
+                        <c:if test="${begin -1 <= 0}">
+                            <c:set var="begin" value="1"/>
+                            <c:set var="end" value="5"/>
+                        </c:if>
+                        <%--如果end超过最大页,设置起始页=最大页-5--%>
+                        <c:if test="${end > page.pageCount}">
+                            <c:set var="begin" value="${page.pageCount - 3}"/>
+                            <c:set var="end" value="${page.pageCount}"/>
+                        </c:if>
+                    </c:otherwise>
+                </c:choose>
+                <a href="/ClassManage?currentPage=1" class="p_pre">首页</a>
+                <c:if test="${page.pageNo>0}">
+                    <a href="/ClassManage?currentPage=${page.pageNo-1}" class="p_pre">上一页</a>
+                </c:if>
+                <c:forEach var="i" begin="${begin}" end="${end}">
+                    <%--当前页,选中--%>
+                  <a href="/ClassManage?currentPage=${i}" <c:if test="${(page.pageNo)==i}">style="background-color:#ff4e00"</c:if>>${i}</a>
+                </c:forEach>
+                <c:if test="${page.pageNo<page.pageCount-1}">
+                    <a href="/ClassManage?currentPage=${page.pageNo+1}" class="p_pre">下一页</a>
+                </c:if>
+                    <a href="/ClassManage?currentPage=${page.pageCount}" class="p_pre">尾页</a>
+                </div >
 
-                <div id="addProductCategory">
+                <div id="addProductCategory" >
             </div>
             <table id="addtable" style="width:930px; text-align:center; margin-bottom:30px;" cellspacing="0" cellpadding="0>
 
             </table>
         </div>
     </div>
-    <div class="b_btm_bg" id="footer">
-        <div class="b_btm">
+     <div class="b_btm_bg" id="footer">
+         <div class="b_btm">
             <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
                 <tbody><tr>
                     <td width="72"><img src="images/b1.png" width="62" height="62"></td>
@@ -298,9 +324,7 @@
         </div>
         </div>
     </div>
-</div>
-        </div>
-    </div>
+
     <div class="b_nav">
         <dl>
             <dt><a href="javascript:void(0)">新手上路</a></dt>
@@ -353,58 +377,59 @@
             <img src="images/b_1.gif" width="98" height="33"><img src="images/b_2.gif" width="98" height="33"><img src="images/b_3.gif" width="98" height="33"><img src="images/b_4.gif" width="98" height="33"><img src="images/b_5.gif" width="98" height="33"><img src="images/b_6.gif" width="98" height="33">
         </div>
     </div>
-    </div>
 </div>
-    <script type="text/javascript">
-        function del() {
-            $.ajax({type:"post",
-                data:{
-                    delid:$("#select")[0].value
-                },
-                url:"/delete",
-                async:true,
-                success:function(result){
-                    if(result==1){
-                        alert("删除成功")
-                        window.location.href="/ClassManage?currentPage=0";
-                    }else {
-                        alert("网络繁忙")
-                    }
-                }});
+</body>
+    </html>
+<script type="text/javascript">
+    function del() {
+        $.ajax({type:"post",
+            data:{
+                delid:$("#select")[0].value
+            },
+            url:"/delproductcategory",
+            async:true,
+            success:function(result){
+                if(result==1){
+                    alert("删除成功")
+                    window.location.reload();
+                }else {
+                    alert("网络繁忙")
+                }
+            }});
 
-        }
-    </script>
-    <script type="text/javascript">
-        var html="<tr>\n" +
-            "            <td>\n" +
-            "                分类级别\n" +
-            "            </td>\n" +
-            "            <td>\n" +
-            "                <select id='fisrt' onchange='change()' >\n" +
-            "                    <option value=\"0\">请选择</option>\n" +
-            "                    <option value=\"1\">一级分类</option>\n" +
-            "                    <option value=\"2\">二级分类</option>\n" +
-            "                    <option value=\"3\">三级分类</option>\n" +
-            "                </select>\n" +
-            "            </td>\n" +
-            "        </tr>\n" +
-            "<tr> <td>\n" +
-            "                分类名称\n" +
-            "            </td>\n" +
-            "                <td>\n" +
-            "<input type=\"text\" name='name'/>\n" +
-            "</td>\n" +
-            " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\"  onclick='add()'>";
-         function addclick(){
-                    //添加对应的内容到zhitable
-               var addtable=document.getElementById("addtable")
-              addtable.innerHTML=html;
-            };
-    </script>
-    <script type="text/javascript">
-        function change() {
-            if(document.getElementById("fisrt").value==3){
-                var html="<tr>\n" +
+    }
+</script>
+<script type="text/javascript">
+    var html="<tr>\n" +
+        "            <td>\n" +
+        "                分类级别\n" +
+        "            </td>\n" +
+        "            <td>\n" +
+        "                <select id='fisrt' onchange='change()' >\n" +
+        "                    <option value=\"0\">请选择</option>\n" +
+        "                    <option value=\"1\">一级分类</option>\n" +
+        "                    <option value=\"2\">二级分类</option>\n" +
+        "                    <option value=\"3\">三级分类</option>\n" +
+        "                </select>\n" +
+        "            </td>\n" +
+        "        </tr>\n" +
+        "<tr> <td>\n" +
+        "                分类名称\n" +
+        "            </td>\n" +
+        "                <td>\n" +
+        "<input type=\"text\" name='name'/>\n" +
+        "</td>\n" +
+        " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\"  onclick='add()'>";
+    function addclick(){
+        //添加对应的内容到zhitable
+        var addtable=document.getElementById("addtable")
+        addtable.innerHTML=html;
+    };
+</script>
+<script type="text/javascript">
+    function change() {
+        if(document.getElementById("fisrt").value==3){
+            var html="<tr>\n" +
                 "            <td>\n" +
                 "                分类级别\n" +
                 "            </td>\n" +
@@ -417,126 +442,123 @@
                 "                </select>\n" +
                 "            </td>\n" +
                 "        </tr>\n" + "        <tr> <td>\n" +
-                    "            一级分类\n" +
-                    "        </td>\n" +
-                    "            <td>\n" +
-                    "                <select name='fisname' id='fisname'>\n" +
-                    "                    <option value=\"0\">请选择</option>\n" +
-                    "                    <option value=\"化妆品\">化妆品</option>\n" +
-                    "                    <option value=\"进口食品\">进口食品</option>\n" +
-                    "                    <option value=\"箱包\">箱包</option>\n" +
-                    "                    <option value=\"电子商品\">电子商品</option>\n" +
-                    "                </select>\n" +
-                    "            </td>\n" +
-                    "        </tr>\n" +
-                    "            <tr> <td>\n" +
-                    "                二级分类\n" +
-                    "            </td>\n" +
-                    "                <td>\n" +
-                    "                    <input type='text' name='secname' id='secname'/>\n" +
-                    "                </td>\n" +
-                    "            </tr>\n" +
-                    "<tr> <td>\n" +
-                    "                分类名称\n" +
-                    "            </td>\n" +
-                    "                <td>\n" +
-                    "<input type=\"text\" name='name' id='name'/>\n" +
-                    "</td>\n" +
-                    " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\" onclick='add()'>";
-                var addtable=document.getElementById("addtable");
-                addtable.innerHTML=html;
-            }else  if(document.getElementById("fisrt").value==2){
-               var html="<tr>\n" +
-                   "            <td>\n" +
-                   "                分类级别\n" +
-                   "            </td>\n" +
-                   "            <td>\n" +
-                   "                <select id='fisrt'  name='fisrt' onchange='change()' >\n" +
-                   "                    <option value=\"0\">请选择</option>\n" +
-                   "                    <option value=\"1\">一级分类</option>\n" +
-                   "                    <option value=\"2\"selected>二级分类</option>\n" +
-                   "                    <option value=\"3\" >三级分类</option>\n" +
-                   "                </select>\n" +
-                   "            </td>\n" +
-                   "        </tr>\n" + "        <tr> <td>\n" +
-                    "            一级分类\n" +
-                    "        </td>\n" +
-                    "            <td>\n" +
-                    "                <select name='fisname' id='fisname' >\n" +
-                    "                    <option value=\"请选择\">请选择</option>\n" +
-                    "                    <option value=\"化妆品\">化妆品</option>\n" +
-                    "                    <option value=\"进口食品\">进口食品</option>\n" +
-                    "                    <option value=\"箱包\">箱包</option>\n" +
-                    "                    <option value=\"电子商品\">电子商品</option>\n" +
-                    "                </select>\n" +
-                    "            </td>\n" +
-                    "        </tr>\n" +
-                   "<tr> <td>\n" +
-                   "                分类名称\n" +
-                   "            </td>\n" +
-                   "                <td>\n" +
-                   "<input type=\"text\" name='name' id='name'/>\n" +
-                   "</td>\n" +
-                   " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\" onclick='add()'>";
-                var addtable=document.getElementById("addtable");
-                addtable.innerHTML=html;
-            }else if(document.getElementById("fisrt").value==1){
-                    var html="<tr>\n" +
-                        "            <td>\n" +
-                        "                分类级别\n" +
-                        "            </td>\n" +
-                        "            <td>\n" +
-                        "                <select id='fisrt'  name='fisrt' onchange='change()' >\n" +
-                        "                    <option value=\"0\">请选择</option>\n" +
-                        "                    <option value=\"1\"selected>一级分类</option>\n" +
-                        "                    <option value=\"2\">二级分类</option>\n" +
-                        "                    <option value=\"3\" >三级分类</option>\n" +
-                        "                </select>\n" +
-                        "            </td>\n" +
-                        "        </tr>\n" + "<tr> <td>\n" +
-                        "                分类名称\n" +
-                        "            </td>\n" +
-                        "                <td>\n" +
-                        "<input type=\"text\" name='name' id='name'/>\n" +
-                        "</td>\n" +
-                        " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\" onclick='add()'>";
-                var addtable=document.getElementById("addtable");
-                addtable.innerHTML=html;
-            }
+                "            一级分类\n" +
+                "        </td>\n" +
+                "            <td>\n" +
+                "                <select name='fisname' id='fisname'>\n" +
+                "                    <option value=\"0\">请选择</option>\n" +
+                "                    <option value=\"化妆品\">化妆品</option>\n" +
+                "                    <option value=\"进口食品\">进口食品</option>\n" +
+                "                    <option value=\"箱包\">箱包</option>\n" +
+                "                    <option value=\"电子商品\">电子商品</option>\n" +
+                "                </select>\n" +
+                "            </td>\n" +
+                "        </tr>\n" +
+                "            <tr> <td>\n" +
+                "                二级分类\n" +
+                "            </td>\n" +
+                "                <td>\n" +
+                "                    <input type='text' name='secname' id='secname'/>\n" +
+                "                </td>\n" +
+                "            </tr>\n" +
+                "<tr> <td>\n" +
+                "                分类名称\n" +
+                "            </td>\n" +
+                "                <td>\n" +
+                "<input type=\"text\" name='name' id='name'/>\n" +
+                "</td>\n" +
+                " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\" onclick='add()'>";
+            var addtable=document.getElementById("addtable");
+            addtable.innerHTML=html;
+        }else  if(document.getElementById("fisrt").value==2){
+            var html="<tr>\n" +
+                "            <td>\n" +
+                "                分类级别\n" +
+                "            </td>\n" +
+                "            <td>\n" +
+                "                <select id='fisrt'  name='fisrt' onchange='change()' >\n" +
+                "                    <option value=\"0\">请选择</option>\n" +
+                "                    <option value=\"1\">一级分类</option>\n" +
+                "                    <option value=\"2\"selected>二级分类</option>\n" +
+                "                    <option value=\"3\" >三级分类</option>\n" +
+                "                </select>\n" +
+                "            </td>\n" +
+                "        </tr>\n" + "        <tr> <td>\n" +
+                "            一级分类\n" +
+                "        </td>\n" +
+                "            <td>\n" +
+                "                <select name='fisname' id='fisname' >\n" +
+                "                    <option value=\"请选择\">请选择</option>\n" +
+                "                    <option value=\"化妆品\">化妆品</option>\n" +
+                "                    <option value=\"进口食品\">进口食品</option>\n" +
+                "                    <option value=\"箱包\">箱包</option>\n" +
+                "                    <option value=\"电子商品\">电子商品</option>\n" +
+                "                </select>\n" +
+                "            </td>\n" +
+                "        </tr>\n" +
+                "<tr> <td>\n" +
+                "                分类名称\n" +
+                "            </td>\n" +
+                "                <td>\n" +
+                "<input type=\"text\" name='name' id='name'/>\n" +
+                "</td>\n" +
+                " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\" onclick='add()'>";
+            var addtable=document.getElementById("addtable");
+            addtable.innerHTML=html;
+        }else if(document.getElementById("fisrt").value==1){
+            var html="<tr>\n" +
+                "            <td>\n" +
+                "                分类级别\n" +
+                "            </td>\n" +
+                "            <td>\n" +
+                "                <select id='fisrt'  name='fisrt' onchange='change()' >\n" +
+                "                    <option value=\"0\">请选择</option>\n" +
+                "                    <option value=\"1\"selected>一级分类</option>\n" +
+                "                    <option value=\"2\">二级分类</option>\n" +
+                "                    <option value=\"3\" >三级分类</option>\n" +
+                "                </select>\n" +
+                "            </td>\n" +
+                "        </tr>\n" + "<tr> <td>\n" +
+                "                分类名称\n" +
+                "            </td>\n" +
+                "                <td>\n" +
+                "<input type=\"text\" name='name' id='name'/>\n" +
+                "</td>\n" +
+                " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\" onclick='add()'>";
+            var addtable=document.getElementById("addtable");
+            addtable.innerHTML=html;
         }
-    </script>
-        <script type="text/javascript">
-            function add() {
+    }
+</script>
+<script type="text/javascript">
+    function add() {
 
-                var  f=$("#fisrt")[0].value;
-                var n=$("#name")[0].value;
+        var  f=$("#fisrt")[0].value;
+        var n=$("#name")[0].value;
 
-                var fi="";
-               if($("#secname")[0]!=null){
-                   fi=$("#secname")[0].value
-               }else  if($("#fisname")[0]!=null){
-                   fi=$("#fisname")[0].value
-               }
-                $.ajax({type:"post",
-                    data:{
-                        first:f,
-                        name:n,
-                       parname:fi,
-                    },
-                    url:"/add",
-                    async:true,
-                    scriptCharset:"utf-8",
-                    success:function(result){
-                        if(result==1){
-                            alert("添加成功")
-                            location.reload();
-                        }else {
-                            alert("信息错误，请核对后再添加")
-                        }
-                    }});
+        var fi="";
+        if($("#secname")[0]!=null){
+            fi=$("#secname")[0].value
+        }else  if($("#fisname")[0]!=null){
+            fi=$("#fisname")[0].value
+        }
+        $.ajax({type:"post",
+            data:{
+                first:f,
+                name:n,
+                parname:fi,
+            },
+            url:"/add",
+            async:true,
+            scriptCharset:"utf-8",
+            success:function(result){
+                if(result==1){
+                    alert("添加成功")
+                    location.href.reload();
+                }else {
+                    alert("信息错误，请核对后再添加")
+                }
+            }});
 
-            }
-        </script>
-
-</body>
-    </html>
+    }
+</script>

@@ -13,12 +13,17 @@ import java.util.List;
 
 @WebServlet("/Regist")
 public class Regist extends HttpServlet {
+    public static   Userservies userservies;
+    @Override
+    public void init() throws ServletException {
+        userservies=new Userservies();;
+    }
+
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         doGet(request, response);
     }
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
@@ -30,7 +35,6 @@ public class Regist extends HttpServlet {
         objects.add(request.getParameter("mobile").toString());
         objects.add(request.getParameter("email").toString());
         objects.add(Integer.parseInt(request.getParameter("sex")));
-        Userservies userservies=new Userservies();
         int i=-1;
         try {
            i=userservies.regist(objects.toArray());

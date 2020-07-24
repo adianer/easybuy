@@ -12,6 +12,12 @@ import java.util.List;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
+    public static   Userservies userservies;
+    @Override
+    public void init() throws ServletException {
+        userservies=new Userservies();;
+    }
+
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
@@ -23,7 +29,6 @@ public class Login extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String loginName=request.getParameter("loginName");
         String password=request.getParameter("password");
-        Userservies userservies=new Userservies();
         int i=userservies.isenter(request,loginName,password);
         response.getOutputStream().print(i);
     }

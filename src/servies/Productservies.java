@@ -1,29 +1,24 @@
 package servies;
 
-import dao.ProductCategoryDao;
-import dao.imp.ProductCategoryImp;
+import dao.ProductDao;
+import dao.imp.ProductImp;
 import pojo.ProductCategory;
-import util.BaseDao;
 import util.Page;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class ProductCategoryservies {
-    public ProductCategoryDao productCategorydao=new ProductCategoryImp();
-    //获取展示列表
-    public void getshowlist(HttpServletRequest request,int num) throws Exception {
+public class Productservies {
+    public static ProductDao productDao=new ProductImp();
+    public void getshowlist(HttpServletRequest request, int num) throws Exception {
         List<ProductCategory> list=null;
         Page page=new Page();
-        page.setCount(productCategorydao.getCount());
+        page.setCount(productDao.getCount());
         if (num!=0){
             page.setPageNo(num);
         }
-        list=productCategorydao.getshowlist(page);
+        list=productDao.getshowlist(page);
         request.setAttribute("page",page);
         request.setAttribute("list",list);
     }
@@ -31,14 +26,13 @@ public class ProductCategoryservies {
     //添加分类
     public int add(List<Object> objects,String name){
         int i=0;
-
         try {
-            i=productCategorydao.getid(name);
+            i=productDao.getid(name);
             if (i==-1){
                 return i;
             }
             objects.add(i);
-           i=productCategorydao.insertProductCategory(objects);
+            i=productDao.insertProduct(objects);
         } catch (SQLException e) {
             e.printStackTrace();
             i=-1;
@@ -49,7 +43,7 @@ public class ProductCategoryservies {
     //根据id删除
     public int delbyId(int id){
         int i=0;
-        i=productCategorydao.deleteProductCategory(id);
+        i=productDao.deleteProduct(id);
         return i;
     }
 }

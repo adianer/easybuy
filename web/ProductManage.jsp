@@ -1,11 +1,18 @@
 <%--
   Created by IntelliJ IDEA.
   User: Admin
+  Date: 2020/7/18
+  Time: 12:12
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: Admin
   Date: 2020/7/16
   Time: 18:50
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -31,10 +38,7 @@
     <script type="text/javascript" src="js/bban.js"></script>
     <script type="text/javascript" src="js/hban.js"></script>
     <script type="text/javascript" src="js/tban.js"></script>
-
     <script type="text/javascript" src="js/lrscroll_1.js"></script>
-
-
     <title>易买网</title>
 </head>
 <body>
@@ -120,14 +124,8 @@
         <span class="fr">
       <span class="fl">你好，<c:if test="${sessionScope.user.userName==null}"><a href="Login.jsp"></a>请<a href="Login.jsp">登录</a></c:if>
         <c:if test="${sessionScope.user.userName!=null}"><a href="Login.jsp">${sessionScope.user.userName}</a></c:if>&nbsp; <a href="Regist.jsp" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="/myOrder">我的订单</a>&nbsp;|</span>
-
-
-
             <span class="fl">|&nbsp;<a href="http://www.asuk.top/EasyBuy_war/admin/product?action=index&amp;userId=2">后台管理</a>&nbsp;</span>
-
-
              <span class="fl">|&nbsp;<a href="http://www.asuk.top/EasyBuy_war/Login?action=loginOut">注销</a></span>
-
         </span>
     </div>
 </div>
@@ -163,61 +161,42 @@
         <div class="car_t">
             购物车 [
             <span>
-
-
                     空
-
             </span>]
         </div>
         <div class="car_bg">
             <!--Begin 购物车未登录 Begin-->
-
-
             <div class="un_login">我的购物车</div>
-
             <!--End 购物车未登录 End-->
             <!--Begin 购物车已登录 Begin-->
             <ul class="cars">
-
             </ul>
             <div class="price_sum">共计&nbsp;<font color="#ff4e00">￥</font><span></span></div>
-
-
             <div class="price_a"><a href="http://www.asuk.top/EasyBuy_war/Cart?action=toSettlement">去结算</a></div>
-
             <!--End 购物车已登录 End-->
         </div>
     </div>
 </div>
-
 <!--End Header End-->
 <div class="i_bg bg_color">
     <!--Begin 用户中心 Begin -->
     <div class="m_content">
-
-
-
         <div class="m_left">
             <div class="left_n">管理中心</div>
             <div class="left_m">
                 <div class="left_m_t t_bg1">订单中心</div>
                 <ul>
                     <li><a href="http://www.asuk.top/EasyBuy_war/admin/order?action=index&amp;userId=2">我的订单</a></li>
-
                     <li><a href="http://www.asuk.top/EasyBuy_war/admin/order?action=queryAllOrder">全部订单</a></li>
-
                 </ul>
             </div>
             <div class="left_m">
                 <div class="left_m_t t_bg2">会员中心</div>
                 <ul>
-                    <li><a href="/Userinfo?id=${user.id}" class="now">用户信息</a></li>
-
-                    <li><a href="/UserList">用户列表</a></li>
-
+                    <li><a href="http://www.asuk.top/EasyBuy_war/admin/user?action=index" class="now">用户信息</a></li>
+                    <li><a href="http://www.asuk.top/EasyBuy_war/admin/user?action=queryUserList">用户列表</a></li>
                 </ul>
             </div>
-
             <div class="left_m">
                 <div class="left_m_t t_bg2">商品管理</div>
                 <ul>
@@ -226,7 +205,6 @@
                     <li><a href="http://www.asuk.top/EasyBuy_war/admin/product?action=toAddProduct">商品上架</a></li>
                 </ul>
             </div>
-
             <div class="left_m">
                 <div class="left_m_t t_bg2">资讯中心</div>
                 <ul>
@@ -235,61 +213,125 @@
             </div>
         </div>
         <div class="m_right" id="content">
-            <div class="m_des">
-                <table border="0" style="width:870px; line-height:22px;" cellspacing="0" cellpadding="0">
-                    <tbody><tr valign="top">
-                        <td width="115"><img src="images/user.jpg" width="90" height="90"></td>
+                <div class="mem_tit">商品列表</div>
+                <br>
+                <table border="0" class="order_tab" style="width:930px; text-align:center; margin-bottom:30px;" cellspacing="0" cellpadding="0">
+                    <tbody>
+                    <tr>
+                        <td width="10%">商品名称</td>
+                        <td width="10%">商品图片</td>
+                        <td width="5%">库存</td>
+                        <td width="10%">价格</td>
+                        <td width="10%" colspan="2">操作</td>
+                    </tr>
+
+                    <tr>
+                        <td>香奈儿</td>
                         <td>
-                            <div class="m_user">${sessionScope.user.userName}</div><br>
-                            <p>
-                                性别:
-
-                                    <c:if test="${sessionScope.user.sex==1}">
-                                                男
-                                         </c:if>
-
-                                    <c:if test="${sessionScope.user.sex==0}">
-                                  女
-                                      </c:if>
-                                <br><br>
-                                邮箱:${sessionScope.user.email}<br><br>
-                                电话:${sessionScope.user.mobile}<br><br>
-                            </p>
+                            <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=733" target="_blank">
+                                <img src="/EasyBuy_war/files/B8D9C9463A524F26AEF05FE0A203128D.jpg" width="50" height="50">
+                            </a>
                         </td>
+                        <td>1</td>
+                        <td>152.0</td>
+                        <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=733">修改</a></td>
+                        <td><a href="javascript:void(0);" onclick="deleteById('733');">删除</a></td>
+                    </tr>    <form >
+                        <c:forEach items="${requestScope.list}" var="Product" >
+                            <tr>
+                                <td> <span>${Product.name }</span>
+                                </td>
+                                <td>
+                                    <a href="/Product?id=${Product.id}" target="_blank">
+                                        <img src="images/${Product.fileName}" width="50" height="50">
+                                    </a>
+                                </td>
+                                <td>
+                                        ${Product.stock}
+                                </td>
+                                <td>
+                                        ${Product.price}
+                                </td>
+                                <td><a href="/UpdataProduct?id=${Product.id}">修改</a></td>
+                                <td><a href="#" onclick="deleteById(${Product.id})">删除</a></td>
+                            </tr>
+                        </c:forEach>
+                    </form>
+                    </tbody>
+                </table>
+            <div class="pages">
+                <c:choose>
+                    <c:when test="${page.pageCount <= 5}">
+                        <c:set var="begin" value="1"/>
+                        <c:set var="end" value="${page.pageCount}"/>
+                    </c:when>
+                    <%--页数超过了6页--%>
+                    <c:otherwise>
+                        <c:set var="begin" value="${page.pageNo-1}"/>
+                        <c:set var="end" value="${page.pageNo+2}"/>
+                        <%--如果begin减1后为0,设置起始页为1,最大页为6--%>
+                        <c:if test="${begin -1 <= 0}">
+                            <c:set var="begin" value="1"/>
+                            <c:set var="end" value="5"/>
+                        </c:if>
+                        <%--如果end超过最大页,设置起始页=最大页-5--%>
+                        <c:if test="${end > page.pageCount}">
+                            <c:set var="begin" value="${page.pageCount - 3}"/>
+                            <c:set var="end" value="${page.pageCount}"/>
+                        </c:if>
+                    </c:otherwise>
+                </c:choose>
+                <a href="/ProductManage?currentPage=1" class="p_pre">首页</a>
+                <c:if test="${page.pageNo>0}">
+                    <a href="/ProductManage?currentPage=${page.pageNo-1}" class="p_pre">上一页</a>
+                </c:if>
+                <c:forEach var="i" begin="${begin}" end="${end}">
+                    <%--当前页,选中--%>
+                    <a href="/ProductManage?currentPage=${i}" <c:if test="${(page.pageNo)==i}">style="background-color:#ff4e00"</c:if>>${i}</a>
+                </c:forEach>
+                <c:if test="${page.pageNo<page.pageCount}">
+                    <a href="/ProductManage?currentPage=${page.pageNo+1}" class="p_pre">下一页</a>
+                </c:if>
+                <a href="/ProductManage?currentPage=${page.pageCount}" class="p_pre">尾页</a>
+            </div >
+            </div>
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+     <div class="b_btm_bg" id="footer">
+            <div class="b_btm">
+                <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td width="72"><img src="images/b1.png" width="62" height="62"></td>
+                        <td><h2>正品保障</h2>正品行货  放心购买</td>
+                    </tr>
+                    </tbody></table>
+                <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td width="72"><img src="images/b2.png" width="62" height="62"></td>
+                        <td><h2>满38包邮</h2>满38包邮 免运费</td>
+                    </tr>
+                    </tbody></table>
+                <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td width="72"><img src="images/b3.png" width="62" height="62"></td>
+                        <td><h2>天天低价</h2>天天低价 畅选无忧</td>
+                    </tr>
+                    </tbody></table>
+                <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td width="72"><img src="images/b4.png" width="62" height="62"></td>
+                        <td><h2>准时送达</h2>收货时间由你做主</td>
                     </tr>
                     </tbody></table>
             </div>
         </div>
     </div>
 
-    <div class="b_btm_bg b_btm_c" id="footer">
-        <div class="b_btm">
-            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
-                <tbody><tr>
-                    <td width="72"><img src="./user_files/b1.png" width="62" height="62"></td>
-                    <td><h2>正品保障</h2>正品行货  放心购买</td>
-                </tr>
-                </tbody></table>
-            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
-                <tbody><tr>
-                    <td width="72"><img src="./user_files/b2.png" width="62" height="62"></td>
-                    <td><h2>满38包邮</h2>满38包邮 免运费</td>
-                </tr>
-                </tbody></table>
-            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
-                <tbody><tr>
-                    <td width="72"><img src="./user_files/b3.png" width="62" height="62"></td>
-                    <td><h2>天天低价</h2>天天低价 畅选无忧</td>
-                </tr>
-                </tbody></table>
-            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
-                <tbody><tr>
-                    <td width="72"><img src="./user_files/b4.png" width="62" height="62"></td>
-                    <td><h2>准时送达</h2>收货时间由你做主</td>
-                </tr>
-                </tbody></table>
-        </div>
-    </div>
     <div class="b_nav">
         <dl>
             <dt><a href="javascript:void(0)">新手上路</a></dt>
@@ -332,16 +374,37 @@
             </p>
         </div>
         <div class="b_er">
-            <div class="b_er_c"><img src="./user_files/er.gif" width="118" height="118"></div>
-            <img src="./user_files/ss.png">
+            <div class="b_er_c"><img src="images/er.gif" width="118" height="118"></div>
+            <img src="images/ss.png">
         </div>
     </div>
     <div class="btmbg">
         <div class="btm">
-            备案/许可证编号：蜀ICP备12009302号-1-www.dingguagua.com   Copyright © 2015-2018 尤洪商城网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br>
-            <img src="./user_files/b_1.gif" width="98" height="33"><img src="./user_files/b_2.gif" width="98" height="33"><img src="./user_files/b_3.gif" width="98" height="33"><img src="./user_files/b_4.gif" width="98" height="33"><img src="./user_files/b_5.gif" width="98" height="33"><img src="./user_files/b_6.gif" width="98" height="33">
+            备案/许可证编号：蜀ICP备12009302号-1-www.dingguagua.com   Copyright © 2015-2018 易买网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br>
+            <img src="images/b_1.gif" width="98" height="33"><img src="images/b_2.gif" width="98" height="33"><img src="images/b_3.gif" width="98" height="33"><img src="images/b_4.gif" width="98" height="33"><img src="images/b_5.gif" width="98" height="33"><img src="images/b_6.gif" width="98" height="33">
         </div>
     </div>
-
 </div>
-</body></html>
+<script type="text/javascript">
+    function deleteById(id) {
+        $.ajax({type:"post",
+            data:{
+                delid:id
+            },
+            url:"/delproduct",
+            async:true,
+            success:function(result){
+                if(result==1){
+                    alert("删除成功")
+                    window.location.reload();
+                }else {
+                    alert("网络繁忙")
+                }
+            }});
+
+    }
+</script>
+</body>
+
+</html>
+

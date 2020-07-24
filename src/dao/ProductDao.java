@@ -5,7 +5,7 @@ import util.Page;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface ProductCategoryDao {
+public interface ProductDao {
     //获取显示列表
     public List getshowlist(Page page) throws Exception;
 
@@ -14,11 +14,11 @@ public interface ProductCategoryDao {
     public int getCount();
 
     //添加商品分类
-    public int insertProductCategory(List<Object> objects );
+    public int insertProduct(List<Object> objects );
 
     //获取父类id
     public int getid(String name) throws SQLException;
 
     //根据ID删除
-    public int deleteProductCategory(int id);
+    public int deleteProduct(int id);
 }

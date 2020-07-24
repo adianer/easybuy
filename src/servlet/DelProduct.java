@@ -1,7 +1,6 @@
 package servlet;
 
-import servies.ProductCategoryservies;
-
+import servies.Productservies;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,12 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/delproductcategory")
-public class DelProductCategory extends HttpServlet {
-    public static ProductCategoryservies productCategoryservies;
+@WebServlet("/delproduct")
+public class DelProduct extends HttpServlet {
+    public static Productservies productservies;
     @Override
     public void init() throws ServletException {
-        productCategoryservies=new ProductCategoryservies();
+        productservies=new Productservies();
     }
 
     @Override
@@ -28,7 +27,7 @@ public class DelProductCategory extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         request.setCharacterEncoding("utf-8");
         int id=Integer.parseInt(request.getParameter("delid"));
-        int i=productCategoryservies.delbyId(id);
+        int i=productservies.delbyId(id);
         response.getOutputStream().print(i);
     }
 }
