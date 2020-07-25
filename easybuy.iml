@@ -41,5 +41,6 @@
     <orderEntry type="library" name="slf4j-simple-1.6.1" level="project" />
     <orderEntry type="library" name="sqljdbc2008" level="project" />
     <orderEntry type="library" name="standard" level="project" />
+    <orderEntry type="library" name="DatabaseUtil" level="project" />
   </component>
 </module>
