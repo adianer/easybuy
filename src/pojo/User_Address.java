@@ -1,6 +1,5 @@
 package pojo;
 
-import sun.dc.pr.PRError;
 
 public class User_Address {
     private Integer id;//主键id

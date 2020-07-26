@@ -1,13 +1,17 @@
 package util;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.*;
 
 public class BaseDao {
     //数据库基础信息
-    private static String driver = "com.mysql.jdbc.Driver";
-    private static String url = "jdbc:mysql://localhost:3306/easybuy?characterEncoding=utf-8";
+    private static String driver = "com.mysql.cj.jdbc.Driver";
+    private static String url = "jdbc:mysql://106.15.89.65:3306/paging?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&serverTimezone=GMT%2B8";
     private static String user = "root";
-    private static String password = "123456.";
+    private static String password = "13870881898dzkmysql";
 
     protected Connection conn;
     //加载数据库驱动
