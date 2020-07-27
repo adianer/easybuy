@@ -4,10 +4,13 @@ package dao.imp;
 import dao.UserDao;
 import pojo.User;
 import util.BaseDao;
+import util.Page;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,5 +61,42 @@ public class UserImp implements UserDao {
 
         }
         return user;
+    }
+
+    @Override
+    public Integer queryCount() throws SQLException {
+        int i=0;
+        String sql="SELECT COUNT(1) FROM `easybuy_user`";
+        List<Object> objects=new ArrayList<>();
+        BaseDao baseDao=new BaseDao();
+        ResultSet rs= baseDao.executeQuery(sql);
+        if (rs.next()){
+            i=rs.getInt(1);
+        }
+        return i;
+    }
+
+    @Override
+    public List<User> Getfigall(Page page) throws SQLException {
+
+        String sql="SELECT * FROM  `easybuy_user` LIMIT ?,?";
+        int size= page.getPageSize();
+        List<User> list=new ArrayList<>();
+        List<Object> objects=new ArrayList<>();
+        objects.add(page.getFirstRecord());
+        objects.add(size);
+        BaseDao baseDao=new BaseDao();
+        ResultSet rs=baseDao.executeQuery(sql,objects.toArray());
+        System.out.println("sql:"+page.getFirstRecord()+"=========="+size);
+        while (rs.next()){
+            User user=new User();
+            user.setId(rs.getInt("id"));
+            user.setLoginName(rs.getString("loginName"));
+            user.setUserName(rs.getString("userName"));
+            user.setSex(rs.getInt("sex"));
+            user.setType(rs.getInt("type"));
+            list.add(user);
+        }
+        return list;
     }
 }

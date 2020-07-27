@@ -4,10 +4,13 @@ package servies;
 import dao.UserDao;
 import dao.imp.UserImp;
 import pojo.User;
+import util.Page;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 public class Userservies {
 public  static UserDao userdao = new UserImp();
@@ -34,4 +37,32 @@ public  static UserDao userdao = new UserImp();
         }
         return isenter;
     }
+
+
+    public Page<User> Getfigall(int index) {
+
+        Page<User> page=new Page();
+        try {
+            userdao.queryCount();
+
+            Integer i=userdao.queryCount();
+            page.setPageCount(i);
+            System.out.println("总记录数："+page.getPageCount());
+            if (index<0 || index>page.getPageCount()){
+                page.setPageNo(1);
+            }else {
+                page.setPageNo(index);
+            }
+            List<User> list= userdao.Getfigall(page);
+            page.setDate(list);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return page;
+    }
+
+
+
+
 }
