@@ -40,14 +40,11 @@ public  static UserDao userdao = new UserImp();
 
 
     public Page<User> Getfigall(int index) {
-
         Page<User> page=new Page();
         try {
-            userdao.queryCount();
-
             Integer i=userdao.queryCount();
-            page.setPageCount(i);
-            System.out.println("总记录数："+page.getPageCount());
+            System.out.println("所有数据:"+i);
+            page.setCount(i);
             if (index<0 || index>page.getPageCount()){
                 page.setPageNo(1);
             }else {
@@ -58,7 +55,6 @@ public  static UserDao userdao = new UserImp();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         return page;
     }
 

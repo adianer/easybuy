@@ -9,8 +9,7 @@ public class demo {
     @Test
     public  void F1(){
         Userservies userservies=new Userservies();
-       Page<User> page= userservies.Getfigall(0);
-
+       Page<User> page= userservies.Getfigall(1);
         for (User u:page.getDate()) {
             System.out.println(u);
         }

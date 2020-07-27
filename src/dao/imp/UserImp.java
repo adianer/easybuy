@@ -67,7 +67,6 @@ public class UserImp implements UserDao {
     public Integer queryCount() throws SQLException {
         int i=0;
         String sql="SELECT COUNT(1) FROM `easybuy_user`";
-        List<Object> objects=new ArrayList<>();
         BaseDao baseDao=new BaseDao();
         ResultSet rs= baseDao.executeQuery(sql);
         if (rs.next()){
@@ -87,6 +86,7 @@ public class UserImp implements UserDao {
         objects.add(size);
         BaseDao baseDao=new BaseDao();
         ResultSet rs=baseDao.executeQuery(sql,objects.toArray());
+        System.out.println("ssss:"+objects.toString());
         System.out.println("sql:"+page.getFirstRecord()+"=========="+size);
         while (rs.next()){
             User user=new User();
