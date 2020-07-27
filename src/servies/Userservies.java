@@ -39,16 +39,15 @@ public  static UserDao userdao = new UserImp();
     }
 
 
-    public Page<User> Getfigall(int index) {
+    public Page<User> Getfigall( Integer pageNo) {
         Page<User> page=new Page();
         try {
             Integer i=userdao.queryCount();
-            System.out.println("所有数据:"+i);
             page.setCount(i);
-            if (index<0 || index>page.getPageCount()){
+            if (pageNo<0 || pageNo>page.getPageCount()){
                 page.setPageNo(1);
             }else {
-                page.setPageNo(index);
+                page.setPageNo(pageNo);
             }
             List<User> list= userdao.Getfigall(page);
             page.setDate(list);

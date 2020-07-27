@@ -1,5 +1,9 @@
 package servlet;
 
+import pojo.User;
+import servies.Userservies;
+import util.Page;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +21,10 @@ public class UserList extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/UserList.jsp").forward(req,resp);
+        Userservies userservies=new Userservies();
+            Integer pageNo= Integer.valueOf(req.getParameter("pageNo"));
+          Page<User> page= userservies.Getfigall(pageNo);
+          req.setAttribute("page",page);
+          req.getRequestDispatcher("/UserList.jsp").forward(req,resp);
     }
 }

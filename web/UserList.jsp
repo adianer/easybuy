@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"  isELIgnored="false" %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
@@ -137,7 +137,7 @@
     <script type="text/javascript" src="<%=path%>/js/hban.js"></script>
     <script type="text/javascript" src="<%=path%>/js/tban.js"></script>
     <script type="text/javascript" src="<%=path%>/js/lrscroll_1.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/register/register.js"></script>
+<%--    <script type="text/javascript" src="<%=path%>/js/register/register.js"></script>--%>
     <link rel="stylesheet" type="text/css" href="<%=path%>/css/ShopShow.css" />
     <link rel="stylesheet" type="text/css" href="<%=path%>/css/MagicZoom.css" />
     <script type="text/javascript" src="<%=path%>/js/MagicZoom.js"></script>
@@ -146,7 +146,7 @@
     <script type="text/javascript" src="<%=path%>/js/shade.js"></script>
 
 
-    <script src="<%=path%>/js/backend/backend.js"></script>
+<%--    <script src="<%=path%>/js/backend/backend.js"></script>--%>
 </head>
 <body>
 <!--End Header End-->
@@ -211,9 +211,9 @@
             <div class="left_m">
                 <div class="left_m_t t_bg2">会员中心</div>
                 <ul>
-                    <li><a href="/Userinfo"  >用户信息</a></li>
+                    <li><a href="/UserInfo"  >用户信息</a></li>
 
-                    <li><a href="/UserList"   class="now" >用户列表</a></li>
+                    <li><a href="/UserList?pageNo=1"   class="now" >用户列表</a></li>
 
                 </ul>
             </div>
@@ -279,23 +279,20 @@
             </script>
             <div class="pages">
 
-                <a href="/EasyBuy_war//admin/user?action=queryUserList&currentPage=1" class="p_pre">首页</a>
+                <a href="/UserList?pageNo=1" class="p_pre">首页</a>
 
 
 
-                <a href="/EasyBuy_war//admin/user?action=queryUserList&currentPage=1" class="cur">1</a>
+                <a href="/UserList?pageNo=1" class="cur">1</a>
 
 
+                <a href="/UserList?pageNo=2">2</a>
 
 
-
-                <a href="/EasyBuy_war//admin/user?action=queryUserList&currentPage=2">2</a>
-
-
-
-                <a href="/EasyBuy_war//admin/user?action=queryUserList&currentPage=2" class="p_pre">下一页</a>
-
-                <a href="/EasyBuy_war//admin/user?action=queryUserList&currentPage=2" class="p_pre">尾页</a>
+                <c:if test="${page.pageNo+1<=page.pageCount}">
+                <a href="/UserList?pageNo=${page.pageNo+1}" class="p_pre">下一页</a>
+                </c:if>
+                <a href="/UserList?pageNo=${page.pageCount}" class="p_pre">尾页</a>
 
 
             </div>

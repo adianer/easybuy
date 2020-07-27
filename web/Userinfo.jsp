@@ -232,7 +232,7 @@
                 <ul>
                     <li><a href="/UserInfo" class="now">用户信息</a></li>
 
-                    <li><a href=/UserList>用户列表</a></li>
+                    <li><a href=/UserList?pageNo=1>用户列表</a></li>
 
                 </ul>
             </div>

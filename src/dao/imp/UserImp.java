@@ -77,7 +77,6 @@ public class UserImp implements UserDao {
 
     @Override
     public List<User> Getfigall(Page page) throws SQLException {
-
         String sql="SELECT * FROM  `easybuy_user` LIMIT ?,?";
         int size= page.getPageSize();
         List<User> list=new ArrayList<>();
@@ -86,9 +85,7 @@ public class UserImp implements UserDao {
         objects.add(size);
         BaseDao baseDao=new BaseDao();
         ResultSet rs=baseDao.executeQuery(sql,objects.toArray());
-        System.out.println("ssss:"+objects.toString());
-        System.out.println("sql:"+page.getFirstRecord()+"=========="+size);
-        while (rs.next()){
+             while (rs.next()){
             User user=new User();
             user.setId(rs.getInt("id"));
             user.setLoginName(rs.getString("loginName"));
