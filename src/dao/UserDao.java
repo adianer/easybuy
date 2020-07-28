@@ -24,4 +24,6 @@ public interface UserDao {
     //分页查询用户信息
     List<User> Getfigall(Page page) throws SQLException;
 
+    //添加用户信息
+    Integer UaerAdd(User user);
 }

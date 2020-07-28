@@ -38,7 +38,7 @@ public  static UserDao userdao = new UserImp();
         return isenter;
     }
 
-
+   //分页查询
     public Page<User> Getfigall( Integer pageNo) {
         Page<User> page=new Page();
         try {
@@ -57,6 +57,11 @@ public  static UserDao userdao = new UserImp();
         return page;
     }
 
+  public  Integer  UaerAdd(User user){
+
+       return userdao.UaerAdd(user);
+
+  }
 
 
 

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UserImp implements UserDao {
@@ -62,7 +63,7 @@ public class UserImp implements UserDao {
         }
         return user;
     }
-
+     //查询用户有几个
     @Override
     public Integer queryCount() throws SQLException {
         int i=0;
@@ -74,7 +75,7 @@ public class UserImp implements UserDao {
         }
         return i;
     }
-
+    //用户分页
     @Override
     public List<User> Getfigall(Page page) throws SQLException {
         String sql="SELECT * FROM  `easybuy_user` LIMIT ?,?";
@@ -95,5 +96,24 @@ public class UserImp implements UserDao {
             list.add(user);
         }
         return list;
+    }
+
+    @Override
+    public Integer UaerAdd(User user) {
+        String sql="INSERT INTO `easybuy_user`(`loginName`,`userName`,`password`,`identityCode`,`email`,`mobile`,`type`)VALUES(?,?,?,?,?,?,?)";
+       BaseDao baseDao=new BaseDao();
+
+     int i=  baseDao.executeUpdate(sql,
+             new Object[]{
+                     user.getLoginName(),
+                     user.getUserName(),
+                     user.getPassword(),
+                     user.getIdentityCode(),
+                     user.getEmail(),
+                     user.getMobile(),
+                     user.getType()
+             });
+
+        return i;
     }
 }

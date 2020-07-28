@@ -1,12 +1,11 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
+<%
+    String path=request.getContextPath();
+%>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-     <%
-    String path=request.getContextPath();
-    %>
     <div class="soubg">
         <div class="sou">
             <!--Begin 所在收货地区 Begin-->
@@ -117,22 +116,23 @@
             </div>
         </div>
     </div>
-    <link type="text/css" rel="stylesheet" href="/css/style.css"/>
-    <script type="text/javascript" src="<%=path%>/js/jquery-1.11.1.min_044d0927.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/jquery.bxslider_e88acd1b.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/jquery-1.8.2.min.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/menu.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/select.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/lrscroll.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/iban.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/fban.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/f_ban.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/mban.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/bban.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/hban.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/tban.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/lrscroll_1.js"></script>
-<%--    <script type="text/javascript" src="<%=path%>/js/register/register.js"></script>--%>
+    <link type="text/css" rel="stylesheet" href="<%=path%>/css/style.css"/>
+    <script type="text/javascript" src="<%=path%>/jsjquery-1.11.1.min_044d0927.js"></script>
+    <script type="text/javascript" src="<%=path%>/jsjquery.bxslider_e88acd1b.js"></script>
+    <script type="text/javascript" src="<%=path%>/jsjquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="<%=path%>/jsmenu.js"></script>
+    <script type="text/javascript" src="<%=path%>/jsselect.js"></script>
+    <script type="text/javascript" src="<%=path%>/jslrscroll.js"></script>
+    <script type="text/javascript" src="<%=path%>/jsiban.js"></script>
+    <script type="text/javascript" src="<%=path%>/jsfban.js"></script>
+    <script type="text/javascript" src="<%=path%>/jsf_ban.js"></script>
+    <script type="text/javascript" src="<%=path%>/jsmban.js"></script>
+    <script type="text/javascript" src="<%=path%>/jsbban.js"></script>
+    <script type="text/javascript" src="<%=path%>/jshban.js"></script>
+    <script type="text/javascript" src="<%=path%>/jstban.js"></script>
+    <script type="text/javascript" src="<%=path%>/jslrscroll_1.js"></script>
+
+    <script type="text/javascript" src="<%=path%>/js/register/register.js"></script>
     <link rel="stylesheet" type="text/css" href="<%=path%>/css/ShopShow.css" />
     <link rel="stylesheet" type="text/css" href="<%=path%>/css/MagicZoom.css" />
     <script type="text/javascript" src="<%=path%>/js/MagicZoom.js"></script>
@@ -141,10 +141,9 @@
     <script type="text/javascript" src="<%=path%>/js/shade.js"></script>
 
 
-<%--    <script src="<%=path%>/js/backend/backend.js"></script>--%>
+    <script src="<%=path%>/js/backend/backend.js"></script>
 </head>
 <body>
-<!--End Header End-->
 
 
 
@@ -186,6 +185,7 @@
     </div>
 </div>
 
+<!--End Header End-->
 <div class="i_bg bg_color">
     <!--Begin 用户中心 Begin -->
     <div class="m_content">
@@ -206,9 +206,9 @@
             <div class="left_m">
                 <div class="left_m_t t_bg2">会员中心</div>
                 <ul>
-                    <li><a href="/UserInfo"  >用户信息</a></li>
+                    <li><a href="/EasyBuy_war/admin/user?action=index"  >用户信息</a></li>
 
-                    <li><a href="/UserList?pageNo=1"   class="now" >用户列表</a></li>
+                    <li><a href="/EasyBuy_war/admin/user?action=queryUserList"  >用户列表</a></li>
 
                 </ul>
             </div>
@@ -230,74 +230,72 @@
             </div>
         </div>
         <div class="m_right" id="content">
-            <div class="mem_tit">用户列表</div>
-            <p align="right">
-                <a href="/UserAdd.jsp"  class="add_b">添加用户</a>
-                <br>
-            </p>
-            <br>
-            <table border="0" class="order_tab" style="width:930px; text-align:center; margin-bottom:30px;"
-                   cellspacing="0" cellpadding="0">
-                <tbody>
-                <tr>
-                    <td width="10%">用户名称</td>
-                    <td width="10%">真实姓名</td>
-                    <td width="5%">性别</td>
-                    <td width="5%">类型</td>
-                    <td width="5%" colspan="2">操作</td>
-                </tr>
-            <c:forEach var="user" items="${page.date}">
-                <tr>
-                    <td>${user.loginName}</td>
-                    <td>${user.userName}</td>
-                    <td>
-                        <c:if test="${user.sex==0}">女</c:if>
-                        <c:if test="${user.sex==1}">男</c:if>
-                    </td>
-                    <td>
-                        <c:if test="${user.type==0}">用户</c:if>
-                        <c:if test="${user.type==1}">管理员</c:if>
-
-                    </td>
-                    <td>
-                        <a href="/UserUpdate.jsp">修改</a>
-                    </td>
-
-                    <td>
-                        <c:if test="${user.type==0}">
-                        <a href="javascript:void(0);" onclick="deleteUserId('10');" target="_blank">删除</a
-                        </c:if>
-                    </td>
-                </tr>
-            </c:forEach>
-                </tbody>
-            </table>
+            <div class="mem_tit">
 
 
 
-            <script type="text/javascript">
-                var contextPath = "/EasyBuy_war";
-            </script>
-            <div class="pages">
-
-                <a href="/UserList?pageNo=1" class="p_pre">首页</a>
-
-
-
-                <a href="/UserList?pageNo=1" class="cur">1</a>
-
-
-                <a href="/UserList?pageNo=2">2</a>
-
-
-                <c:if test="${page.pageNo+1<=page.pageCount}">
-                <a href="/UserList?pageNo=${page.pageNo+1}" class="p_pre">下一页</a>
-                </c:if>
-                <a href="/UserList?pageNo=${page.pageCount}" class="p_pre">尾页</a>
+                修改用户
 
 
             </div>
+            <br>
+            <form action="/EasyBuy_war/admin/user?action=updateUser" method="post" id="userAdd" onsubmit="return checkUser();">
+                <table border="0" class="add_tab" style="width:930px;" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="135" align="right">用户姓名</td>
+                        <td colspan="3" style="font-family:'宋体';">
+                            <input type="text" value="admin" class="add_ipt" name="loginName"/>
+                            <input type="hidden" value="2" name="id">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">真实姓名</td>
+                        <td>
+                            <input type="text" value="系统管理员" class="add_ipt" name="userName"/>
+                        </td>
+                    </tr>
 
+                    <tr>
+                        <td width="135" align="right">身份证号</td>
+                        <td>
+                            <input type="text" value="130406198302141869" class="add_ipt" name="identityCode"
+                                   id="identityCode"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">电子邮箱</td>
+                        <td>
+                            <input type="text" value="hello11@bdqn.com" class="add_ipt" name="email" id="email"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">手机</td>
+                        <td>
+                            <input type="text" value="1583233515" class="add_ipt" name="mobile" id="mobile"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">用户类型</td>
+                        <td>
+                            <select name="type">
+                                <option value="1" selected="selected">管理员</option>
+                                <option value="0" >普通用户</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+
+
+
+                            <input type="button" value="修改信息" class="s_btn"  onclick="addUser();">
+
+
+                        </td>
+                    </tr>
+                </table>
+            </form>
         </div>
     </div>
 
