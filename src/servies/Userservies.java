@@ -62,7 +62,15 @@ public  static UserDao userdao = new UserImp();
        return userdao.UaerAdd(user);
 
   }
-
+  public User UserGetId(Integer id){
+        User user=null;
+      try {
+         user=    userdao.UserGetId(id);
+      } catch (SQLException throwables) {
+          throwables.printStackTrace();
+      }
+      return user ;
+  }
 
 
 }

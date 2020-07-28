@@ -113,7 +113,27 @@ public class UserImp implements UserDao {
                      user.getMobile(),
                      user.getType()
              });
-
         return i;
+    }
+
+    @Override
+    public User UserGetId(Integer id) throws SQLException {
+      String sql="SELECT * FROM `easybuy_user` WHERE id=?";
+      User user=null;
+      BaseDao baseDao=new BaseDao();
+        List<Object> objects = new ArrayList<Object>();
+        objects.add(id);
+      ResultSet rs=  baseDao.executeQuery(sql,objects.toArray());
+      while (rs.next()){
+        user=new User();
+       user.setId(rs.getInt("id"));
+       user.setLoginName(rs.getString("loginName"));
+       user.setUserName(rs.getString("userName"));
+       user.setIdentityCode(rs.getString("identityCode"));
+       user.setEmail(rs.getString("email"));
+       user.setMobile(rs.getString("mobile"));
+       user.setType(rs.getInt("type"));
+      }
+        return user;
     }
 }

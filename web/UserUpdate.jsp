@@ -117,28 +117,28 @@
         </div>
     </div>
     <link type="text/css" rel="stylesheet" href="<%=path%>/css/style.css"/>
-    <script type="text/javascript" src="<%=path%>/jsjquery-1.11.1.min_044d0927.js"></script>
-    <script type="text/javascript" src="<%=path%>/jsjquery.bxslider_e88acd1b.js"></script>
-    <script type="text/javascript" src="<%=path%>/jsjquery-1.8.2.min.js"></script>
-    <script type="text/javascript" src="<%=path%>/jsmenu.js"></script>
-    <script type="text/javascript" src="<%=path%>/jsselect.js"></script>
-    <script type="text/javascript" src="<%=path%>/jslrscroll.js"></script>
-    <script type="text/javascript" src="<%=path%>/jsiban.js"></script>
-    <script type="text/javascript" src="<%=path%>/jsfban.js"></script>
-    <script type="text/javascript" src="<%=path%>/jsf_ban.js"></script>
-    <script type="text/javascript" src="<%=path%>/jsmban.js"></script>
-    <script type="text/javascript" src="<%=path%>/jsbban.js"></script>
-    <script type="text/javascript" src="<%=path%>/jshban.js"></script>
-    <script type="text/javascript" src="<%=path%>/jstban.js"></script>
-    <script type="text/javascript" src="<%=path%>/jslrscroll_1.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/jquery-1.11.1.min_044d0927.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/jquery.bxslider_e88acd1b.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/menu.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/select.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/lrscroll.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/iban.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/fban.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/f_ban.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/mban.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/bban.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/hban.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/tban.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/lrscroll_1.js"></script>
 
-    <script type="text/javascript" src="<%=path%>/js/register/register.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/shade.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/user/register.js"></script>
     <link rel="stylesheet" type="text/css" href="<%=path%>/css/ShopShow.css" />
     <link rel="stylesheet" type="text/css" href="<%=path%>/css/MagicZoom.css" />
     <script type="text/javascript" src="<%=path%>/js/MagicZoom.js"></script>
     <script type="text/javascript" src="<%=path%>/js/num.js"></script>
     <script type="text/javascript" src="<%=path%>/js/p_tab.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/shade.js"></script>
 
 
     <script src="<%=path%>/js/backend/backend.js"></script>
@@ -208,7 +208,7 @@
                 <ul>
                     <li><a href="/EasyBuy_war/admin/user?action=index"  >用户信息</a></li>
 
-                    <li><a href="/EasyBuy_war/admin/user?action=queryUserList"  >用户列表</a></li>
+                    <li><a href="/UserList?pageNo=1"  >用户列表</a></li>
 
                 </ul>
             </div>
@@ -244,34 +244,34 @@
                     <tr>
                         <td width="135" align="right">用户姓名</td>
                         <td colspan="3" style="font-family:'宋体';">
-                            <input type="text" value="admin" class="add_ipt" name="loginName"/>
-                            <input type="hidden" value="2" name="id">
+                            <input type="text" value="${user.loginName}" class="add_ipt" name="loginName"/>
+                            <input type="hidden" value="${user.id}" name="id">
                         </td>
                     </tr>
                     <tr>
                         <td width="135" align="right">真实姓名</td>
                         <td>
-                            <input type="text" value="系统管理员" class="add_ipt" name="userName"/>
+                            <input type="text" value="${user.userName}" class="add_ipt" name="userName"/>
                         </td>
                     </tr>
 
                     <tr>
                         <td width="135" align="right">身份证号</td>
                         <td>
-                            <input type="text" value="130406198302141869" class="add_ipt" name="identityCode"
+                            <input type="text" value="${user.identityCode}" class="add_ipt" name="identityCode"
                                    id="identityCode"/>
                         </td>
                     </tr>
                     <tr>
                         <td width="135" align="right">电子邮箱</td>
                         <td>
-                            <input type="text" value="hello11@bdqn.com" class="add_ipt" name="email" id="email"/>
+                            <input type="text" value="${user.email}" class="add_ipt" name="email" id="email"/>
                         </td>
                     </tr>
                     <tr>
                         <td width="135" align="right">手机</td>
                         <td>
-                            <input type="text" value="1583233515" class="add_ipt" name="mobile" id="mobile"/>
+                            <input type="text" value="${user.mobile}" class="add_ipt" name="mobile" id="mobile"/>
                         </td>
                     </tr>
                     <tr>

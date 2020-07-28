@@ -132,7 +132,7 @@
     <script type="text/javascript" src="<%=path%>/js/hban.js"></script>
     <script type="text/javascript" src="<%=path%>/js/tban.js"></script>
     <script type="text/javascript" src="<%=path%>/js/lrscroll_1.js"></script>
-<%--    <script type="text/javascript" src="<%=path%>/js/register/register.js"></script>--%>
+ <script type="text/javascript" src="<%=path%>/js/user/register.js"></script>
     <link rel="stylesheet" type="text/css" href="<%=path%>/css/ShopShow.css" />
     <link rel="stylesheet" type="text/css" href="<%=path%>/css/MagicZoom.css" />
     <script type="text/javascript" src="<%=path%>/js/MagicZoom.js"></script>
@@ -141,7 +141,7 @@
     <script type="text/javascript" src="<%=path%>/js/shade.js"></script>
 
 
-<%--    <script src="<%=path%>/js/backend/backend.js"></script>--%>
+    <script src="<%=path%>/js/backend/backend.js"></script>
 </head>
 <body>
 <!--End Header End-->
@@ -260,7 +260,7 @@
 
                     </td>
                     <td>
-                        <a href="/UserUpdate.jsp">修改</a>
+                        <a href="/UserUpdate?id=${user.id}">修改</a>
                     </td>
 
                     <td>

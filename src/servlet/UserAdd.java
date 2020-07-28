@@ -1,7 +1,9 @@
 package servlet;
 
+import com.alibaba.fastjson.JSON;
 import pojo.User;
 import servies.Userservies;
+import util.JsonData;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/UserAdd")
 public class UserAdd  extends HttpServlet {
@@ -42,10 +45,18 @@ public class UserAdd  extends HttpServlet {
         Userservies userservies=new Userservies();
         Integer i=  userservies.UaerAdd(user);
         System.out.println(i);
+        JsonData jsonData = new JsonData();
         if (i>0){
-            req.getRequestDispatcher("/UserList?pageNo=1").forward(req,resp);
+            jsonData.setId(1);
+//            req.getRequestDispatcher("/UserList?pageNo=1").forward(req,resp);
         }else {
-            resp.sendRedirect("/UserAdd.jsp");
+            jsonData.setMessage("添加失败");
+            //resp.sendRedirect("/UserAdd.jsp");
         }
+
+        PrintWriter out = resp.getWriter();
+        out.print(JSON.toJSONString(jsonData));
+        out.flush();
+        out.close();
     }
 }

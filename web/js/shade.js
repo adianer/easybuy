@@ -31,3 +31,8 @@ function CloseDiv_1(show_div,bg_div)
 	document.getElementById(show_div).style.display='none';
 	document.getElementById(bg_div).style.display='none';
 };
+//µ¯³ö´°
+function showMessage(content){
+	ShowDiv_1('MyDiv1','fade1');
+	$("#showMessage").html(content);
+}

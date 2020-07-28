@@ -141,7 +141,7 @@
     <script type="text/javascript" src="<%=path%>/js/shade.js"></script>
 
 
-    <script src="<%=path%>/js/backend.js"></script>
+    <script src="<%=path%>/js/backend/backend.js"></script>
 </head>
 <body>
 

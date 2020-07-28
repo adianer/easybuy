@@ -26,4 +26,7 @@ public interface UserDao {
 
     //添加用户信息
     Integer UaerAdd(User user);
+
+    //id查询
+    User UserGetId(Integer id) throws SQLException;
 }
