@@ -136,4 +136,46 @@ public class UserImp implements UserDao {
       }
         return user;
     }
+
+    @Override
+    public Integer Userupdate(User user) {
+        BaseDao baseDao=new BaseDao();
+        StringBuffer sb=new StringBuffer();
+        sb.append("UPDATE `easybuy_user` SET");
+        List<Object> objects = new ArrayList<Object>();
+        Integer i=0;
+        if (user.getLoginName()!=null){
+         sb.append(" loginName=?,");
+         objects.add(user.getLoginName());
+        }
+        if (user.getUserName()!=null){
+            sb.append(" userName=?,");
+            objects.add(user.getUserName());
+        }
+        if (user.getIdentityCode()!=null){
+            sb.append(" identityCode=?,");
+            objects.add(user.getIdentityCode());
+        }
+        if (user.getEmail()!=null){
+            sb.append(" email=?,");
+            objects.add(user.getEmail());
+        }
+        if (user.getMobile()!=null){
+            sb.append(" mobile=?,");
+            objects.add(user.getMobile());
+        }
+        if (user.getType()!=null){
+            sb.append(" type=?,");
+            objects.add(user.getType());
+        }
+
+       sb.delete(sb.length()-1,sb.length());
+        System.out.println(sb.length());
+        sb.append(" where id=?");
+        objects.add(user.getId());
+
+        System.out.println(sb.toString());
+
+        return   baseDao.executeUpdate(sb.toString(),objects.toArray());
+    }
 }

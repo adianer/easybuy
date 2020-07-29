@@ -12,19 +12,29 @@ import java.io.IOException;
 
 @WebServlet("/UserUpdate")
 public class UserUpdate extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       doPost(req,resp);
+     doPost(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id=req.getParameter("id");
-        System.out.println("id:"+id);
-        Userservies  userservies=new Userservies();
-       User user= userservies.UserGetId(Integer.valueOf(id));
-        req.setAttribute("user",user);
-        req.getRequestDispatcher("/UserUpdate.jsp").forward(req,resp);
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        Userservies userservies=new Userservies();
+        User user=new User();
+        user.setLoginName(req.getParameter("loginName"));
+        user.setUserName(req.getParameter("userName"));
+        user.setIdentityCode(req.getParameter("identityCode"));
+        user.setEmail(req.getParameter("email"));
+        user.setMobile(req.getParameter("mobile"));
+        user.setType(Integer.valueOf(req.getParameter("type")));
+           Integer i =   userservies.Userupdate(user);
+        if (i>0){
+            req.getRequestDispatcher("/UserList?pageNo=1").forward(req,resp);
+        }
+        else {
+            System.out.println("修改失败！！！");
+        }
     }
 }

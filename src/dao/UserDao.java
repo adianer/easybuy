@@ -29,4 +29,7 @@ public interface UserDao {
 
     //id查询
     User UserGetId(Integer id) throws SQLException;
+
+    //修改用户信息
+     Integer  Userupdate(User user);
 }

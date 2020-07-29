@@ -32,8 +32,9 @@ public class UserAdd  extends HttpServlet {
         String email = req.getParameter("email");
         String mobile = req.getParameter("mobile");
         String type = req.getParameter("type");
-        System.out.println("type:"+type);
-        User user=new User();
+        System.out.println("type:" + type);
+        User user = new User();
+        user.setId(Integer.valueOf(req.getParameter("id")));
         user.setLoginName(loginName);
         user.setUserName(userName);
         user.setPassword(password);
@@ -42,18 +43,23 @@ public class UserAdd  extends HttpServlet {
         user.setMobile(mobile);
         user.setType(Integer.valueOf(type));
 
-        Userservies userservies=new Userservies();
-        Integer i=  userservies.UaerAdd(user);
-        System.out.println(i);
+        Userservies userservies = new Userservies();
+        Integer i = 0;
+        if (user.getId()==null) {
+            i=  userservies.UaerAdd(user);
+
+        }else {
+            i = userservies.Userupdate(user);
+
+        }
         JsonData jsonData = new JsonData();
         if (i>0){
             jsonData.setId(1);
-//            req.getRequestDispatcher("/UserList?pageNo=1").forward(req,resp);
+            // req.getRequestDispatcher("/UserList?pageNo=1").forward(req,resp);
         }else {
             jsonData.setMessage("添加失败");
             //resp.sendRedirect("/UserAdd.jsp");
         }
-
         PrintWriter out = resp.getWriter();
         out.print(JSON.toJSONString(jsonData));
         out.flush();

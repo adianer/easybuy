@@ -239,7 +239,7 @@
 
             </div>
             <br>
-            <form action="/EasyBuy_war/admin/user?action=updateUser" method="post" id="userAdd" onsubmit="return checkUser();">
+            <form action="/UserUpdate" method="post" id="userAdd" onsubmit="return checkUser();">
                 <table border="0" class="add_tab" style="width:930px;" cellspacing="0" cellpadding="0">
                     <tr>
                         <td width="135" align="right">用户姓名</td>

@@ -2,9 +2,9 @@
 /**
  * Created by bdqn on 2016/5/3.
  */
-function addUser() {
-    $("#userAdd").submit();
-}
+// function addUser() {
+//     $("#userAdd").submit();
+// }
 
 function checkUser() {
     //获取相关字段的值

@@ -3,6 +3,7 @@ package servies;
 
 import dao.UserDao;
 import dao.imp.UserImp;
+import org.omg.CORBA.PUBLIC_MEMBER;
 import pojo.User;
 import util.Page;
 
@@ -72,5 +73,10 @@ public  static UserDao userdao = new UserImp();
       return user ;
   }
 
+
+  public Integer Userupdate(User user){
+        
+        return userdao.Userupdate(user);
+  }
 
 }

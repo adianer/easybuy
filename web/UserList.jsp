@@ -260,7 +260,7 @@
 
                     </td>
                     <td>
-                        <a href="/UserUpdate?id=${user.id}">修改</a>
+                        <a href="/LookUser?id=${user.id}">修改</a>
                     </td>
 
                     <td>
