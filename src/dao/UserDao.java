@@ -32,4 +32,8 @@ public interface UserDao {
 
     //修改用户信息
      Integer  Userupdate(User user);
+
+     //删除用户信息
+    Integer deleteUser(Integer id);
+
 }

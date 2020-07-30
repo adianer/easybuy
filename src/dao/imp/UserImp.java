@@ -178,4 +178,14 @@ public class UserImp implements UserDao {
 
         return   baseDao.executeUpdate(sb.toString(),objects.toArray());
     }
+
+    @Override
+    public Integer deleteUser(Integer id) {
+        String sql="DELETE FROM`easybuy_user` WHERE id=?";
+        BaseDao baseDao=new BaseDao();
+        List<Object> objects=new ArrayList<>();
+        objects.add(id);
+      Integer i=  baseDao.executeUpdate(sql,objects.toArray());
+        return i;
+    }
 }

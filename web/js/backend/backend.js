@@ -296,7 +296,7 @@ function deleteUserId(id) {
     var bool=window.confirm("确认删除此用户信息么?");
     if(bool){
         $.ajax({
-            url: contextPath + "/admin/user",
+            url: "/UserDelete",
             method: "post",
             data: {
                 id: id,
@@ -304,7 +304,7 @@ function deleteUserId(id) {
             },
             success: function (jsonStr) {
                 var result = eval("(" + jsonStr + ")");
-                if (result.status == 1) {
+                if (result.id == 1) {
                     window.location.reload();
                 }
             }

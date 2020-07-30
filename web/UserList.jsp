@@ -265,7 +265,7 @@
 
                     <td>
                         <c:if test="${user.type==0}">
-                        <a href="javascript:void(0);" onclick="deleteUserId('10');" target="_blank">删除</a
+                        <a href="javascript:void(0);" onclick="deleteUserId(${user.id});">删除</a
                         </c:if>
                     </td>
                 </tr>

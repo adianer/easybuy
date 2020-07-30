@@ -57,12 +57,13 @@ public  static UserDao userdao = new UserImp();
         }
         return page;
     }
-
+   //添加用户
   public  Integer  UaerAdd(User user){
 
        return userdao.UaerAdd(user);
 
   }
+   //用id查找用户
   public User UserGetId(Integer id){
         User user=null;
       try {
@@ -73,10 +74,15 @@ public  static UserDao userdao = new UserImp();
       return user ;
   }
 
-
+  //修改用户
   public Integer Userupdate(User user){
         
         return userdao.Userupdate(user);
+  }
+
+  public Integer deleteUser(Integer id){
+
+        return userdao.deleteUser(id);
   }
 
 }
