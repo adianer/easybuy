@@ -33,7 +33,9 @@ public class UserAddAndUpdate extends HttpServlet {
         String mobile = req.getParameter("mobile");
         String type = req.getParameter("type");
         User user = new User();
-        user.setId(Integer.valueOf(req.getParameter("id")));
+        if (req.getParameter("id")!=""){
+            user.setId(Integer.parseInt(req.getParameter("id")));
+        }
         user.setLoginName(loginName);
         user.setUserName(userName);
         user.setPassword(password);
