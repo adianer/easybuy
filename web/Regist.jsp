@@ -39,9 +39,9 @@
 <div class="soubg">
     <div class="sou">
         <span class="fr">
-        	<span class="fl">你好，请<c:if test="${sessionScope.user.userName==null}"><a href="Login.jsp">登录</a></c:if>
-        <c:if test="${sessionScope.user.userName!=null}"><a href="user.jsp">${sessionScope.user.userName}</a></c:if>
-                <a href="Regist.jsp" style="color:#ff4e00;">免费注册</a>&nbsp; </span>
+        	<span class="fl">你好，请<c:if test="${sessionScope.user.userName==null}"><a href="/Easybuy/Login">登录</a></c:if>
+        <c:if test="${sessionScope.user.userName!=null}"><a href="/Easybuy/user">${sessionScope.user.userName}</a></c:if>
+                <a href="/Easybuy/Regist" style="color:#ff4e00;">免费注册</a>&nbsp; </span>
             <span class="fl">|&nbsp;关注我们：</span>
             <span class="s_sh"><a href="#" class="sh1">新浪</a><a href="#" class="sh2">微信</a></span>
             <span class="fr">|&nbsp;<a href="#">手机版&nbsp;<img src="images/s_tel.png" align="absmiddle" /></a></span>
@@ -49,7 +49,7 @@
     </div>
 </div>
 <!--End Header End-->
-<!--Begin Login Begin-->
+<!--Begin Loginservlet Begin-->
 <div class="log_bg">
     <div class="top">
         <div class="logo"><a href="Index.html"><img src="images/logo.png" /></a></div>
@@ -112,7 +112,7 @@
         </div>
     </div>
 </div>
-<!--End Login End-->
+<!--End Loginservlet End-->
 <!--Begin Footer Begin-->
 <div class="btmbg">
     <div class="btm">
@@ -138,7 +138,7 @@
                 email:$("#email")[0].value,
                 mobile:$("#mobile")[0].value,
             },
-            url:"/Regist",
+            url:"/Registservlet",
             async:true,
             success:function(result){
                 if(result==1){

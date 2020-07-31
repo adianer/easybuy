@@ -122,8 +122,8 @@
         </span>
         <!--End 所在收货地区 End-->
         <span class="fr">
-      <span class="fl">你好，<c:if test="${sessionScope.user.userName==null}"><a href="Login.jsp"></a>请<a href="Login.jsp">登录</a></c:if>
-        <c:if test="${sessionScope.user.userName!=null}"><a href="Login.jsp">${sessionScope.user.userName}</a></c:if>&nbsp; <a href="Regist.jsp" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="/myOrder">我的订单</a>&nbsp;|</span>
+      <span class="fl">你好，<c:if test="${sessionScope.user.userName==null}">请<a href="/Easybuy/Login">登录</a></c:if>
+        <c:if test="${sessionScope.user.userName!=null}"><a href="/Easybuy/Login">${sessionScope.user.userName}</a></c:if>&nbsp; <a href="/Easybuy/Regist" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="/myOrder">我的订单</a>&nbsp;|</span>
             <span class="fl">|&nbsp;<a href="http://www.asuk.top/EasyBuy_war/admin/product?action=index&amp;userId=2">后台管理</a>&nbsp;</span>
              <span class="fl">|&nbsp;<a href="http://www.asuk.top/EasyBuy_war/Login?action=loginOut">注销</a></span>
         </span>
@@ -202,7 +202,7 @@
                 <ul>
                     <li><a href="/ClassManage?currentPage=1">分类管理</a></li>
                     <li><a href="/ProductManage?currentPage=1">商品管理</a></li>
-                    <li><a href="http://www.asuk.top/EasyBuy_war/admin/product?action=toAddProduct">商品上架</a></li>
+                    <li><a href="/ProductInfo">商品上架</a></li>
                 </ul>
             </div>
             <div class="left_m">
@@ -224,25 +224,13 @@
                         <td width="10%">价格</td>
                         <td width="10%" colspan="2">操作</td>
                     </tr>
-
-                    <tr>
-                        <td>香奈儿</td>
-                        <td>
-                            <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=733" target="_blank">
-                                <img src="/EasyBuy_war/files/B8D9C9463A524F26AEF05FE0A203128D.jpg" width="50" height="50">
-                            </a>
-                        </td>
-                        <td>1</td>
-                        <td>152.0</td>
-                        <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=733">修改</a></td>
-                        <td><a href="javascript:void(0);" onclick="deleteById('733');">删除</a></td>
-                    </tr>    <form >
+                    <form >
                         <c:forEach items="${requestScope.list}" var="Product" >
                             <tr>
                                 <td> <span>${Product.name }</span>
                                 </td>
                                 <td>
-                                    <a href="/Product?id=${Product.id}" target="_blank">
+                                    <a href="/ProductInfo?id=${Product.id}" target="_blank">
                                         <img src="images/${Product.fileName}" width="50" height="50">
                                     </a>
                                 </td>
@@ -252,7 +240,7 @@
                                 <td>
                                         ${Product.price}
                                 </td>
-                                <td><a href="/UpdataProduct?id=${Product.id}">修改</a></td>
+                                <td><a href="/ProductInfo?id=${Product.id}">修改</a></td>
                                 <td><a href="#" onclick="deleteById(${Product.id})">删除</a></td>
                             </tr>
                         </c:forEach>

@@ -1,5 +1,6 @@
 package dao;
 
+import pojo.Product;
 import util.Page;
 
 import java.sql.SQLException;
@@ -13,12 +14,15 @@ public interface ProductDao {
     //获取总记录数
     public int getCount();
 
-    //添加商品分类
+    //添加商品
     public int insertProduct(List<Object> objects );
-
-    //获取父类id
-    public int getid(String name) throws SQLException;
 
     //根据ID删除
     public int deleteProduct(int id);
+
+    //根据id查询
+    public Product querybyId(int id);
+
+    //修改商品
+    public int updataProduct(List<Object> objects );
 }

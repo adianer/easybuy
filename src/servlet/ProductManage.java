@@ -46,7 +46,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
             }else {
                 PrintWriter otu=response.getWriter();
                 otu.print(" <script type='text/javascript'>alert('您还未登录，即将跳转至登录页面');\n" +
-                        "    window.location.href='Login.jsp'</script>");
+                        "    window.location.href='Loginservlet.jsp'</script>");
 
             }
         }

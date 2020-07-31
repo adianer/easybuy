@@ -119,8 +119,8 @@
         </span>
     <!--End 所在收货地区 End-->
     <span class="fr">
-      <span class="fl">你好，<c:if test="${sessionScope.user.userName==null}"><a href="Login.jsp"></a>请<a href="Login.jsp">登录</a></c:if>
-        <c:if test="${sessionScope.user.userName!=null}"><a href="user.jsp">${sessionScope.user.userName}</a></c:if>&nbsp; <a href="Regist.jsp" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="/myOrder">我的订单</a>&nbsp;|</span>
+      <span class="fl">你好，<c:if test="${sessionScope.user.userName==null}">请<a href="/EasybuyLogin">登录</a></c:if>
+        <c:if test="${sessionScope.user.userName!=null}"><a href="/Easybuyuser">${sessionScope.user.userName}</a></c:if>&nbsp; <a href="/EasybuyRegist" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="/myOrder">我的订单</a>&nbsp;|</span>
         	<span class="ss">
             	<div class="ss_list">
                 	<a href="#">收藏夹</a>
@@ -140,9 +140,9 @@
                     	<div class="s_city_t"></div>
                         <div class="ss_list_c">
                         	<ul>
-                            	<li><a href="#">客户服务</a></li>
-                                <li><a href="#">客户服务</a></li>
-                                <li><a href="#">客户服务</a></li>
+                            	<li><a href="#">购物车</a></li>
+                                <li><a href="#">我的订单</a></li>
+                                <li><a href="#">个人中心</a></li>
                             </ul>
                         </div>
                     </div>
@@ -153,8 +153,8 @@
                     	<div class="s_city_t"></div>
                         <div class="ss_list_c">
                         	<ul>
-                            	<li><a href="#">网站导航</a></li>
-                                <li><a href="#">网站导航</a></li>
+                            	<li><a href="baidu.com">百度搜索</a></li>
+                                <li><a href="JD.<command>">京东超市</a></li>
                             </ul>
                         </div>
                     </div>

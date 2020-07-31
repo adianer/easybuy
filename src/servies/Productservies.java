@@ -2,7 +2,9 @@ package servies;
 
 import dao.ProductDao;
 import dao.imp.ProductImp;
+import pojo.Product;
 import pojo.ProductCategory;
+import servlet.ProductInfo;
 import util.Page;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import java.util.List;
 
 public class Productservies {
     public static ProductDao productDao=new ProductImp();
+    //获取显示列表
     public void getshowlist(HttpServletRequest request, int num) throws Exception {
         List<ProductCategory> list=null;
         Page page=new Page();
@@ -23,27 +26,29 @@ public class Productservies {
         request.setAttribute("list",list);
     }
 
-    //添加分类
-    public int add(List<Object> objects,String name){
-        int i=0;
-        try {
-            i=productDao.getid(name);
-            if (i==-1){
-                return i;
-            }
-            objects.add(i);
-            i=productDao.insertProduct(objects);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            i=-1;
-        }
-        return i;
-    }
-
     //根据id删除
-    public int delbyId(int id){
+    public int deletebyId(int id){
         int i=0;
         i=productDao.deleteProduct(id);
+        return i;
+    }
+    //根据id查询
+    public Product querybyId( HttpServletRequest request, int id){
+        Product product=null;
+        product=productDao.querybyId(id);
+        request.setAttribute("productinfo", product);
+        return product;
+    }
+    //添加商品
+    public int inserProduct(List<Object> objects,HttpServletRequest request){
+        int i=0;
+        i=productDao.insertProduct(objects);
+        return i;
+    }
+    //修改商品
+    public int updataProduct(List<Object> objects){
+        int i=0;
+        i=productDao.updataProduct(objects);
         return i;
     }
 }

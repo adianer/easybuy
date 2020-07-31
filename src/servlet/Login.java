@@ -10,26 +10,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/Login")
-public class Login extends HttpServlet {
-    public static   Userservies userservies;
-    @Override
-    public void init() throws ServletException {
-        userservies=new Userservies();;
-    }
+@WebServlet("/EasybuyLogin")
 
+public class Login extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         doGet(request, response);
     }
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("utf-8");
         request.setCharacterEncoding("utf-8");
-        String loginName=request.getParameter("loginName");
-        String password=request.getParameter("password");
-        int i=userservies.isenter(request,loginName,password);
-        response.getOutputStream().print(i);
+        request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 }

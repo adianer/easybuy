@@ -27,16 +27,18 @@ public  static UserDao userdao = new UserImp();
     //登录
     public int isenter(HttpServletRequest request, String loginName, String password) throws ServletException, IOException {
         int isenter = -1;
-        User user = userdao.getUser(request, loginName);
-        if (user == null) {
-            isenter =  0;  // 用户名不存在
-        }
-        if (!user.getPassword().equals(password)) {
-            isenter =  2;  //用户名存在  ,密码错误
-        } else {
-            isenter = 1;
-            request.getSession().setAttribute("user", user);
-        }
+
+       try{
+           User user = userdao.getUser(request, loginName);
+           isenter = 1;
+           request.getSession().setAttribute("user", user);
+           if(user==null){
+               isenter=-1;
+           }
+       }catch (Exception e){
+           e.printStackTrace();
+           isenter=0;
+       }
         return isenter;
     }
 

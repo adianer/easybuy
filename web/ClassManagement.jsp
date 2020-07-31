@@ -202,7 +202,7 @@
                 <ul>
                     <li><a href="/ClassManage?currentPage=1">分类管理</a></li>
                     <li><a href="/ProductManage?currentPage=1">商品管理</a></li>
-                    <li><a href="http://www.asuk.top/EasyBuy_war/admin/product?action=toAddProduct">商品上架</a></li>
+                    <li><a href="/ProductInfo">商品上架</a></li>
                 </ul>
             </div>
                 <div class="left_m">
@@ -229,7 +229,7 @@
                     <td width="25%">操作</td>
                 </tr>
                 <form >
-                <c:forEach items="${requestScope.list}" var="ProductCategory" >
+                <c:forEach items="${requestScope.classlist}" var="ProductCategory" >
                     <tr>
                         <td width="5%"><input type="radio" value="${ProductCategory.id}" name="select" id="select" onclick="(this);"></td>
                         <td> <span>${ProductCategory.name }</span>
@@ -419,7 +419,7 @@
         "                <td>\n" +
         "<input type=\"text\" name='name'/>\n" +
         "</td>\n" +
-        " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\"  onclick='add()'>";
+        " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\"  onclick='addProductCategory()'>";
     function addclick(){
         //添加对应的内容到zhitable
         var addtable=document.getElementById("addtable")
@@ -467,7 +467,7 @@
                 "                <td>\n" +
                 "<input type=\"text\" name='name' id='name'/>\n" +
                 "</td>\n" +
-                " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\" onclick='add()'>";
+                " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\" onclick='addProductCategory()'>";
             var addtable=document.getElementById("addtable");
             addtable.innerHTML=html;
         }else  if(document.getElementById("fisrt").value==2){
@@ -502,7 +502,7 @@
                 "                <td>\n" +
                 "<input type=\"text\" name='name' id='name'/>\n" +
                 "</td>\n" +
-                " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\" onclick='add()'>";
+                " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\" onclick='addProductCategory()'>";
             var addtable=document.getElementById("addtable");
             addtable.innerHTML=html;
         }else if(document.getElementById("fisrt").value==1){
@@ -524,14 +524,14 @@
                 "                <td>\n" +
                 "<input type=\"text\" name='name' id='name'/>\n" +
                 "</td>\n" +
-                " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\" onclick='add()'>";
+                " </tr>"+"<input type=\"button\" id=\"addbutton\" value=\"确认修改\" class=\"add_b\" onclick='addProductCategory()'>";
             var addtable=document.getElementById("addtable");
             addtable.innerHTML=html;
         }
     }
 </script>
 <script type="text/javascript">
-    function add() {
+    function addProductCategory() {
 
         var  f=$("#fisrt")[0].value;
         var n=$("#name")[0].value;
@@ -548,7 +548,7 @@
                 name:n,
                 parname:fi,
             },
-            url:"/add",
+            url:"/addProductCategory",
             async:true,
             scriptCharset:"utf-8",
             success:function(result){

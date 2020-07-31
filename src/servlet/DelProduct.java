@@ -27,7 +27,7 @@ public class DelProduct extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         request.setCharacterEncoding("utf-8");
         int id=Integer.parseInt(request.getParameter("delid"));
-        int i=productservies.delbyId(id);
+        int i=productservies.deletebyId(id);
         response.getOutputStream().print(i);
     }
 }

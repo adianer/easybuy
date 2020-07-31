@@ -15,7 +15,7 @@ public class BaseDao {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
     }
