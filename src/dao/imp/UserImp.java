@@ -100,6 +100,7 @@ public class UserImp implements UserDao {
         return list;
     }
 
+    //添加用户
     @Override
     public Integer UaerAdd(User user) {
         String sql="INSERT INTO `easybuy_user`(`loginName`,`userName`,`password`,`identityCode`,`email`,`mobile`,`type`)VALUES(?,?,?,?,?,?,?)";
@@ -118,7 +119,7 @@ public class UserImp implements UserDao {
         baseDao.closeAll(baseDao.getConnection(),null,null);
         return i;
     }
-
+    //用ID查询用户信息
     @Override
     public User UserGetId(Integer id) throws SQLException {
       String sql="SELECT * FROM `easybuy_user` WHERE id=?";
@@ -140,7 +141,7 @@ public class UserImp implements UserDao {
         baseDao.closeAll(baseDao.getConnection(),null,null);
         return user;
     }
-
+    //修改用户信息
     @Override
     public Integer Userupdate(User user) {
         BaseDao baseDao=new BaseDao();
@@ -173,12 +174,14 @@ public class UserImp implements UserDao {
         }
 
        sb.delete(sb.length()-1,sb.length());
+
         sb.append(" where id=?");
         objects.add(user.getId());
         baseDao.closeAll(baseDao.getConnection(),null,null);
         return   baseDao.executeUpdate(sb.toString(),objects.toArray());
     }
 
+    //删除用户信息
     @Override
     public Integer deleteUser(Integer id) {
         String sql="DELETE FROM`easybuy_user` WHERE id=?";

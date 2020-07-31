@@ -21,7 +21,6 @@ public class LookUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id=req.getParameter("id");
-        System.out.println("id:"+id);
         Userservies  userservies=new Userservies();
        User user= userservies.UserGetId(Integer.valueOf(id));
         req.setAttribute("user",user);

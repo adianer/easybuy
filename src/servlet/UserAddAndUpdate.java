@@ -25,6 +25,7 @@ public class UserAddAndUpdate extends HttpServlet {
 
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
+
         String loginName = req.getParameter("loginName");
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
