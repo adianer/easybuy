@@ -2,6 +2,7 @@ package servlet;
 
 import pojo.ProductCategory;
 import servies.ProductCategoryservies;
+import servies.Productservies;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,12 +13,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/ClassManage")
-public class ClassManage  extends HttpServlet {
-    public static ProductCategoryservies productCategoryservies;
+@WebServlet("/ProductInfo")
+public class ProductInfo extends HttpServlet {
+    public static Productservies productservies;
     @Override
     public void init() throws ServletException {
-        productCategoryservies=new ProductCategoryservies();
+        productservies=new Productservies();
     }
 
     @Override
@@ -32,16 +33,16 @@ public class ClassManage  extends HttpServlet {
         response.setContentType("text/html");
         request.setCharacterEncoding("utf-8");
         if (request.getSession().getAttribute("user")!=null){
-            int num=1;
-            if(request.getParameter("currentPage")!=null) {
-                num = Integer.parseInt(request.getParameter("currentPage"));
+            int id=0;
+            if(request.getParameter("id")!=null) {
+               id = Integer.parseInt(request.getParameter("id"));
+                try {
+                    productservies.querybyId(request,id);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-            try {
-                productCategoryservies.getshowlist(request,num);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            request.getRequestDispatcher("ClassManagement.jsp").forward(request, response);
+            request.getRequestDispatcher("ProductInfo.jsp").forward(request, response);
         }else {
             PrintWriter otu=response.getWriter();
             otu.print(" <script type='text/javascript'>alert('您还未登录，即将跳转至登录页面');\n" +

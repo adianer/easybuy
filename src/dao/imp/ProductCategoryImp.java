@@ -5,6 +5,7 @@ import pojo.ProductCategory;
 import util.BaseDao;
 import util.Page;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -97,6 +98,28 @@ public class ProductCategoryImp implements ProductCategoryDao {
         sql+=id;
         i=baseDao.executeUpdate(sql);
         return i;
+    }
+    //获取显示列表
+    @Override
+    public List getClassify(HttpServletRequest request, int id) throws Exception {
+        List list=new ArrayList();
+        String sql="SELECT `id`,`name`,`parentId`,`type`,`iconClass` FROM `easybuy_product_category`WHERE parentId=?";
+        List<Object> objects = new ArrayList<Object>();
+        objects.add(id);
+        BaseDao baseDao = new BaseDao();
+        ResultSet rs= baseDao.executeQuery(sql,objects.toArray());
+        ProductCategory category;
+        while (rs.next())
+        {
+            category=new ProductCategory();
+            category.setId(rs.getInt("id"));
+            category.setName(rs.getString("name"));
+            category.setParentId(rs.getInt("parentId"));
+            category.setType(rs.getInt("type"));
+            request.setAttribute("i",rs.getInt("type"));
+            list.add(category);
+        }
+        return  list;
     }
 }
 

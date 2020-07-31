@@ -59,41 +59,35 @@ public class ProductImp implements ProductDao {
         return count;
     }
 
-    //添加商品分类
+    //添加商品
     @Override
     public int insertProduct(List<Object> objects ){
         int i=0;
         BaseDao baseDao=new BaseDao();
-        String sql="insert easybuy_product_category (type,name,parentId)values( ?,?,?)";
+        String sql="insert easybuy_product (`categoryLevel1Id`,`categoryLevel2Id`,`categoryLevel3Id`,`name`,`fileName`,`price`,`stock`,`description`) values( ?,?,?,?,?,?,?,?)";
         try {
             i = baseDao.executeUpdate(sql, objects.toArray());
         }catch (Exception e){
             e.printStackTrace();
-        }
-        return i;
-    }
-
-    //获取父类id
-    @Override
-    public int getid(String name) throws SQLException {
-        int i=0;
-        BaseDao baseDao = new BaseDao();
-        String sql = "SELECT id FROM easybuy_product WHERE name=?";
-        List<Object> objects = new ArrayList<Object>();
-        objects.add(name);
-        ResultSet rs = baseDao.executeQuery(sql,objects.toArray());
-        try{
-            if(rs!=null){
-                rs.next();
-                i = rs.getInt("id");
-            }
-        }catch (Exception e){
             i=-1;
         }
         return i;
-
     }
 
+    //修改商品
+    @Override
+    public int updataProduct(List<Object> objects ){
+        int i=0;
+        BaseDao baseDao=new BaseDao();
+        String sql="update easybuy_product set `categoryLevel1Id`=?,`categoryLevel2Id`=?,`categoryLevel3Id`=?,`name`=?,`fileName`=?,`price`=?,`stock`=?,`description`=? where id=?";
+        try {
+            i = baseDao.executeUpdate(sql, objects.toArray());
+        }catch (Exception e){
+            e.printStackTrace();
+            i=-1;
+        }
+        return i;
+    }
     //根据ID删除
     @Override
     public int deleteProduct(int id){
@@ -104,5 +98,33 @@ public class ProductImp implements ProductDao {
         objects.add(id);
         i=baseDao.executeUpdate(sql,objects.toArray());
         return i;
+    }
+
+    @Override
+    public Product querybyId(int id) {
+        Product product=null;
+        String sql="SELECT id,name,description,price,stock,categoryLevel1Id,categoryLevel2Id,categoryLevel3Id,fileName,isDelete FROM easybuy_product WHERE id=?";
+        List<Object> o=new ArrayList<>();
+        o.add(id);
+        BaseDao base=new BaseDao();
+        ResultSet rs= base.executeQuery(sql ,o.toArray());
+        try {
+            if(rs.next()){
+                product=new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("description"));
+                product.setPrice(rs.getFloat("price"));
+                product.setStock(rs.getInt("stock"));
+                product.setCategoryLevel1Id(rs.getInt("categoryLevel1Id"));
+                product.setCategoryLevel2Id(rs.getInt("categoryLevel2Id"));
+                product.setCategoryLevel3Id(rs.getInt("categoryLevel3Id"));
+                product.setFileName(rs.getString("fileName"));
+                product.setIsDelete(rs.getInt("isDelete"));
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        return product;
     }
 }

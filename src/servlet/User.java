@@ -1,18 +1,15 @@
 package servlet;
 
-import servies.Userservies;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-@WebServlet("/EasybuyRegist")
+@WebServlet("/Easybuyuser")
 
-public class Regist extends HttpServlet {
+public class User extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
@@ -23,6 +20,7 @@ public class Regist extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("utf-8");
         request.setCharacterEncoding("utf-8");
-        request.getRequestDispatcher("Regist.jsp").forward(request, response);
+        request.getRequestDispatcher("user.jsp").forward(request, response);
     }
 }
+

@@ -1,11 +1,18 @@
 <%--
   Created by IntelliJ IDEA.
   User: Admin
+  Date: 2020/7/18
+  Time: 12:12
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: Admin
   Date: 2020/7/16
   Time: 18:50
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -31,10 +38,7 @@
     <script type="text/javascript" src="js/bban.js"></script>
     <script type="text/javascript" src="js/hban.js"></script>
     <script type="text/javascript" src="js/tban.js"></script>
-
     <script type="text/javascript" src="js/lrscroll_1.js"></script>
-
-
     <title>易买网</title>
 </head>
 <body>
@@ -119,15 +123,9 @@
         <!--End 所在收货地区 End-->
         <span class="fr">
       <span class="fl">你好，<c:if test="${sessionScope.user.userName==null}"><a href="Login.jsp"></a>请<a href="Login.jsp">登录</a></c:if>
-        <c:if test="${sessionScope.user.userName!=null}"><a href="Login.jsp">${sessionScope.user.userName}</a></c:if>&nbsp; <a href="Regist.jsp" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="/myOrder">我的订单</a>&nbsp;|</span>
-
-
-
+        <c:if test="${sessionScope.user.userName!=null}"><a href="user.jsp">${sessionScope.user.userName}</a></c:if>&nbsp; <a href="Regist.jsp" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="/myOrder">我的订单</a>&nbsp;|</span>
             <span class="fl">|&nbsp;<a href="http://www.asuk.top/EasyBuy_war/admin/product?action=index&amp;userId=2">后台管理</a>&nbsp;</span>
-
-
              <span class="fl">|&nbsp;<a href="http://www.asuk.top/EasyBuy_war/Login?action=loginOut">注销</a></span>
-
         </span>
     </div>
 </div>
@@ -163,61 +161,42 @@
         <div class="car_t">
             购物车 [
             <span>
-
-
                     空
-
             </span>]
         </div>
         <div class="car_bg">
             <!--Begin 购物车未登录 Begin-->
-
-
             <div class="un_login">我的购物车</div>
-
             <!--End 购物车未登录 End-->
             <!--Begin 购物车已登录 Begin-->
             <ul class="cars">
-
             </ul>
             <div class="price_sum">共计&nbsp;<font color="#ff4e00">￥</font><span></span></div>
-
-
             <div class="price_a"><a href="http://www.asuk.top/EasyBuy_war/Cart?action=toSettlement">去结算</a></div>
-
             <!--End 购物车已登录 End-->
         </div>
     </div>
 </div>
-
 <!--End Header End-->
 <div class="i_bg bg_color">
     <!--Begin 用户中心 Begin -->
     <div class="m_content">
-
-
-
         <div class="m_left">
             <div class="left_n">管理中心</div>
             <div class="left_m">
                 <div class="left_m_t t_bg1">订单中心</div>
                 <ul>
                     <li><a href="http://www.asuk.top/EasyBuy_war/admin/order?action=index&amp;userId=2">我的订单</a></li>
-
                     <li><a href="http://www.asuk.top/EasyBuy_war/admin/order?action=queryAllOrder">全部订单</a></li>
-
                 </ul>
             </div>
             <div class="left_m">
                 <div class="left_m_t t_bg2">会员中心</div>
                 <ul>
-                    <li><a href="/UserInfo" class="now">用户信息</a></li>
-
-                    <li><a href="/UserList?pageNo=1">用户列表</a></li>
-
+                    <li><a href="http://www.asuk.top/EasyBuy_war/admin/user?action=index" class="now">用户信息</a></li>
+                    <li><a href="http://www.asuk.top/EasyBuy_war/admin/user?action=queryUserList">用户列表</a></li>
                 </ul>
             </div>
-
             <div class="left_m">
                 <div class="left_m_t t_bg2">商品管理</div>
                 <ul>
@@ -226,7 +205,6 @@
                     <li><a href="/ProductInfo">商品上架</a></li>
                 </ul>
             </div>
-
             <div class="left_m">
                 <div class="left_m_t t_bg2">资讯中心</div>
                 <ul>
@@ -235,60 +213,108 @@
             </div>
         </div>
         <div class="m_right" id="content">
-            <div class="m_des">
-                <table border="0" style="width:870px; line-height:22px;" cellspacing="0" cellpadding="0">
-                    <tbody><tr valign="top">
-                        <td width="115"><img src="images/user.jpg" width="90" height="90"></td>
-                        <td>
-                            <div class="m_user">${sessionScope.user.userName}</div><br>
-                            <p>
-                                性别:
-                                    <c:if test="${sessionScope.user.sex==1}">
-                                                男
-                                         </c:if>
-                                    <c:if test="${sessionScope.user.sex==0}">
-                                  女
-                                      </c:if>
-                                <br><br>
-                                邮箱:${sessionScope.user.email}<br><br>
-                                电话:${sessionScope.user.mobile}<br><br>
-                            </p>
+            <div class="mem_tit">
+                 添加商品
+             </div>
+             <br>
+            <form action="/addProduct" method="post" id="productAdd" enctype="multipart/form-data">
+                <table border="0" class="add_tab" style="width:930px;" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td width="135" align="right">一级分类</td>
+                        <td colspan="3" style="font-family:'宋体';">
+                            <select name="categoryLevel1Id"  style="background-color:#f6f6f6;" id="productCategoryLevel1"  onchange="change222()">
+                                <option value="${requestScope.productinfo.categoryLevel1Id}" selected="selected">请选择...</option>
+
+                            </select>
                         </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">二级分类</td>
+                        <td>
+                            <select name="categoryLevel2Id" style="background-color:#f6f6f6;" id="productCategoryLevel2" onchange="change333()">
+                                <option value="" selected="selected">请选择...</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">三级分类</td>
+                        <td>
+                            <select name="categoryLevel3Id"  style="background-color:#f6f6f6;" id="productCategoryLevel3">
+                                <option value="" selected="selected">请选择...</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">商品名称</td>
+                        <td>
+                            <input type="text" value="${requestScope.productinfo.name}" class="add_ipt" name="name" id="name">（必填）
+                            <input type="hidden" name="id" value="${requestScope.productinfo.id}" id="id">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">商品图片</td>
+                        <td>
+                            <input type="file" class="text" name="photo" value="${requestScope.productinfo.fileName}" id="fileName" onchange="upload()"><span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">单价</td>
+                        <td>
+                            <input type="text" value="${requestScope.productinfo.price}" class="add_ipt" name="price" id="price">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">库存</td>
+                        <td>
+                            <input type="text" value="${requestScope.productinfo.stock}" class="add_ipt" name="stock" id="stock">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">描述</td>
+                        <td>
+                            <textarea name="description"  id="description">${requestScope.productinfo.description}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" value="商品上架" class="s_btn">
+                        </td>
+                    </tr>
+                    </tbody></table>
+            </form>
+        </div>
+    </div>
+     <div class="b_btm_bg" id="footer">
+            <div class="b_btm">
+                <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td width="72"><img src="images/b1.png" width="62" height="62"></td>
+                        <td><h2>正品保障</h2>正品行货  放心购买</td>
+                    </tr>
+                    </tbody></table>
+                <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td width="72"><img src="images/b2.png" width="62" height="62"></td>
+                        <td><h2>满38包邮</h2>满38包邮 免运费</td>
+                    </tr>
+                    </tbody></table>
+                <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td width="72"><img src="images/b3.png" width="62" height="62"></td>
+                        <td><h2>天天低价</h2>天天低价 畅选无忧</td>
+                    </tr>
+                    </tbody></table>
+                <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td width="72"><img src="images/b4.png" width="62" height="62"></td>
+                        <td><h2>准时送达</h2>收货时间由你做主</td>
                     </tr>
                     </tbody></table>
             </div>
         </div>
     </div>
-
-    <div class="b_btm_bg b_btm_c" id="footer">
-        <div class="b_btm">
-            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
-                <tbody><tr>
-                    <td width="72"><img src="./user_files/b1.png" width="62" height="62"></td>
-                    <td><h2>正品保障</h2>正品行货  放心购买</td>
-                </tr>
-                </tbody></table>
-            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
-                <tbody><tr>
-                    <td width="72"><img src="./user_files/b2.png" width="62" height="62"></td>
-                    <td><h2>满38包邮</h2>满38包邮 免运费</td>
-                </tr>
-                </tbody></table>
-            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
-                <tbody><tr>
-                    <td width="72"><img src="./user_files/b3.png" width="62" height="62"></td>
-                    <td><h2>天天低价</h2>天天低价 畅选无忧</td>
-                </tr>
-                </tbody></table>
-            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
-                <tbody><tr>
-                    <td width="72"><img src="./user_files/b4.png" width="62" height="62"></td>
-                    <td><h2>准时送达</h2>收货时间由你做主</td>
-                </tr>
-                </tbody></table>
-        </div>
-    </div>
-    <div class="b_nav">
+     <div class="b_nav">
         <dl>
             <dt><a href="javascript:void(0)">新手上路</a></dt>
             <dd><a href="javascript:void(0)">售后流程</a></dd>
@@ -330,16 +356,91 @@
             </p>
         </div>
         <div class="b_er">
-            <div class="b_er_c"><img src="./user_files/er.gif" width="118" height="118"></div>
-            <img src="./user_files/ss.png">
+            <div class="b_er_c"><img src="images/er.png" width="118" height="118"></div>
+            <img src="images/ss.png">
         </div>
     </div>
     <div class="btmbg">
         <div class="btm">
-            备案/许可证编号：蜀ICP备12009302号-1-www.dingguagua.com   Copyright © 2015-2018 尤洪商城网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br>
-            <img src="./user_files/b_1.gif" width="98" height="33"><img src="./user_files/b_2.gif" width="98" height="33"><img src="./user_files/b_3.gif" width="98" height="33"><img src="./user_files/b_4.gif" width="98" height="33"><img src="./user_files/b_5.gif" width="98" height="33"><img src="./user_files/b_6.gif" width="98" height="33">
+            备案/许可证编号：蜀ICP备12009302号-1-www.dingguagua.com   Copyright © 2015-2018 易买网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br>
+            <img src="images/b_1.gif" width="98" height="33"><img src="images/b_2.gif" width="98" height="33"><img src="images/b_3.gif" width="98" height="33"><img src="images/b_4.gif" width="98" height="33"><img src="images/b_5.gif" width="98" height="33"><img src="images/b_6.gif" width="98" height="33">
         </div>
     </div>
-
 </div>
-</body></html>
+<script type="text/javascript">
+    function change111() {
+        var id=0;
+        var sele=document.getElementById("productCategoryLevel1")
+        $.ajax({type:"post",
+            data:{
+                id:id
+            },
+            datatype:"json" ,
+            url:"Classify",
+            async:true,
+            success:function(result){
+                    console.log(result);
+                    for(var i = 0;i < result.length; i++){
+                        sele.innerHTML += "<option value=\""+result[i].id+"\">"+result[i].name+"</option>";
+                    }
+
+            }});
+     }
+    function change222() {
+        var id=document.getElementById("productCategoryLevel1").value;
+        var sele=document.getElementById("productCategoryLevel2");
+        sele.innerHTML=" <option value=\"\" selected=\"selected\">请选择...</option>";
+        $.ajax({type:"post",
+            data:{
+                id:id
+            },
+            datatype:"json" ,
+            url:"Classify",
+            async:true,
+            success:function(result){
+                console.log(result);
+                for(var i = 0;i < result.length; i++){
+                    sele.innerHTML += "<option value=\""+result[i].id+"\">"+result[i].name+"</option>";
+                }
+
+            }});
+    }
+    function change333() {
+        var id=document.getElementById("productCategoryLevel2").value;
+        var sele=document.getElementById("productCategoryLevel3");
+        sele.innerHTML=" <option value=\"\" selected=\"selected\">请选择...</option>";
+        $.ajax({type:"post",
+            data:{
+                id:id
+            },
+            datatype:"json" ,
+            url:"Classify",
+            async:true,
+            success:function(result){
+                console.log(result);
+                for(var i = 0;i < result.length; i++){
+                    sele.innerHTML += "<option value=\""+result[i].id+"\">"+result[i].name+"</option>";
+                }
+
+            }});
+    }
+     window.onload=change111();
+    function upload() {
+        var formData = new FormData();
+        var file = document.getElementById('fileName').files[0];
+        formData.append("file", file);
+        $.ajax({type:"post",
+            data: formData,
+            datatype:"json" ,
+            url:"upload",
+            processData: false,
+            contentType: false,
+            async:true,
+            success:function(result){
+              $("#productAdd").attr("enctype","application/x-www-form-urlencoded")
+            }});
+    }
+</script>
+</body>
+ </html>
+ 

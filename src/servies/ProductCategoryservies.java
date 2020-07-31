@@ -2,6 +2,7 @@ package servies;
 
 import dao.ProductCategoryDao;
 import dao.imp.ProductCategoryImp;
+import pojo.Product;
 import pojo.ProductCategory;
 import util.BaseDao;
 import util.Page;
@@ -25,11 +26,11 @@ public class ProductCategoryservies {
         }
         list=productCategorydao.getshowlist(page);
         request.setAttribute("page",page);
-        request.setAttribute("list",list);
+        request.setAttribute("classlist",list);
     }
 
     //添加分类
-    public int add(List<Object> objects,String name){
+    public int inserProductCategory(List<Object> objects, String name){
         int i=0;
 
         try {
@@ -51,5 +52,17 @@ public class ProductCategoryservies {
         int i=0;
         i=productCategorydao.deleteProductCategory(id);
         return i;
+    }
+
+    //获取类列表
+    public List<ProductCategory> getClassify(HttpServletRequest request, int id){
+        List<ProductCategory> parlist=null;
+        try {
+            parlist=productCategorydao.getClassify( request,id);
+            request.getSession().setAttribute("parlist",parlist);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return parlist;
     }
 }
