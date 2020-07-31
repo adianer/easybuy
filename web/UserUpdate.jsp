@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <%@ page contentType="text/html;charset=UTF-8" language="java"  %>
@@ -278,16 +279,14 @@
                         <td width="135" align="right">用户类型</td>
                         <td>
                             <select name="type">
-                                <option value="1" selected="selected">管理员</option>
-                                <option value="0" >普通用户</option>
+                                <option value="1"   <c:if test="${user.type==1}">selected="selected"</c:if>>管理员</option>
+                                <option value="0"  <c:if test="${user.type==0}">selected="selected"</c:if>>普通用户</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
-
-
 
                             <input type="button" value="修改信息" class="s_btn"  onclick="addUser();">
 
