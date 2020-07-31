@@ -73,6 +73,7 @@ public class UserImp implements UserDao {
         if (rs.next()){
             i=rs.getInt(1);
         }
+        baseDao.closeAll(baseDao.getConnection(),null,null);
         return i;
     }
     //用户分页
@@ -95,6 +96,7 @@ public class UserImp implements UserDao {
             user.setType(rs.getInt("type"));
             list.add(user);
         }
+        baseDao.closeAll(baseDao.getConnection(),null,null);
         return list;
     }
 
@@ -113,6 +115,7 @@ public class UserImp implements UserDao {
                      user.getMobile(),
                      user.getType()
              });
+        baseDao.closeAll(baseDao.getConnection(),null,null);
         return i;
     }
 
@@ -134,6 +137,7 @@ public class UserImp implements UserDao {
        user.setMobile(rs.getString("mobile"));
        user.setType(rs.getInt("type"));
       }
+        baseDao.closeAll(baseDao.getConnection(),null,null);
         return user;
     }
 
@@ -143,7 +147,6 @@ public class UserImp implements UserDao {
         StringBuffer sb=new StringBuffer();
         sb.append("UPDATE `easybuy_user` SET");
         List<Object> objects = new ArrayList<Object>();
-        Integer i=0;
         if (user.getLoginName()!=null){
          sb.append(" loginName=?,");
          objects.add(user.getLoginName());
@@ -170,12 +173,9 @@ public class UserImp implements UserDao {
         }
 
        sb.delete(sb.length()-1,sb.length());
-        System.out.println(sb.length());
         sb.append(" where id=?");
         objects.add(user.getId());
-
-        System.out.println(sb.toString());
-
+        baseDao.closeAll(baseDao.getConnection(),null,null);
         return   baseDao.executeUpdate(sb.toString(),objects.toArray());
     }
 
@@ -186,6 +186,7 @@ public class UserImp implements UserDao {
         List<Object> objects=new ArrayList<>();
         objects.add(id);
       Integer i=  baseDao.executeUpdate(sql,objects.toArray());
+        baseDao.closeAll(baseDao.getConnection(),null,null);
         return i;
     }
 }

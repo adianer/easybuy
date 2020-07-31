@@ -32,7 +32,6 @@ public class UserAddAndUpdate extends HttpServlet {
         String email = req.getParameter("email");
         String mobile = req.getParameter("mobile");
         String type = req.getParameter("type");
-        System.out.println("type:" + type);
         User user = new User();
         user.setId(Integer.valueOf(req.getParameter("id")));
         user.setLoginName(loginName);
@@ -42,7 +41,6 @@ public class UserAddAndUpdate extends HttpServlet {
         user.setEmail(email);
         user.setMobile(mobile);
         user.setType(Integer.valueOf(type));
-
         Userservies userservies = new Userservies();
         Integer i = 0;
         if (user.getId()==null) {

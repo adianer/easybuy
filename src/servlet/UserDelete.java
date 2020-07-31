@@ -28,7 +28,6 @@ public class UserDelete extends HttpServlet {
         Userservies userservies=new Userservies();
        Integer id= Integer.valueOf(req.getParameter("id"));
            Integer i=  userservies.deleteUser(id);
-        System.out.println(i);
         JsonData jsonData = new JsonData();
            if (i>0){
 

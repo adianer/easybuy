@@ -5,6 +5,7 @@ import dao.UserDao;
 import dao.imp.UserImp;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import pojo.User;
+import util.BaseDao;
 import util.Page;
 
 import javax.servlet.ServletException;
@@ -54,6 +55,7 @@ public  static UserDao userdao = new UserImp();
             page.setDate(list);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
         }
         return page;
     }
@@ -79,7 +81,7 @@ public  static UserDao userdao = new UserImp();
         
         return userdao.Userupdate(user);
   }
-
+ //删除用户
   public Integer deleteUser(Integer id){
 
         return userdao.deleteUser(id);
