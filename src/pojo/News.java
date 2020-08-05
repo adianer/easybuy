@@ -3,9 +3,9 @@ package pojo;
 public class News {
    private Integer id;//主键
    private String title;//标题
-   private String contebt;//内容
+   private String content;//内容
    private String createTime;//创建时间
-
+     private String user;
     public Integer getId() {
         return id;
     }
@@ -22,19 +22,25 @@ public class News {
         this.title = title;
     }
 
-    public String getContebt() {
-        return contebt;
+    public String getContent() {
+        return content;
     }
 
-    public void setContebt(String contebt) {
-        this.contebt = contebt;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public void setCreateTime(String createTime) { this.createTime = createTime;    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

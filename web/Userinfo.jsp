@@ -232,7 +232,7 @@
                 <ul>
                     <li><a href="/UserInfo" class="now">用户信息</a></li>
 
-                    <li><a href=/UserList?pageNo=1>用户列表</a></li>
+                    <li><a href="/UserList?pageNo=1">用户列表</a></li>
 
                 </ul>
             </div>
@@ -240,16 +240,16 @@
             <div class="left_m">
                 <div class="left_m_t t_bg2">商品管理</div>
                 <ul>
-                    <li><a href="http://www.asuk.top/EasyBuy_war/admin/productCategory?action=index">分类管理</a></li>
-                    <li><a href="http://www.asuk.top/EasyBuy_war/admin/product?action=index">商品管理</a></li>
-                    <li><a href="http://www.asuk.top/EasyBuy_war/admin/product?action=toAddProduct">商品上架</a></li>
+                    <li><a href="/ClassManage?currentPage=1">分类管理</a></li>
+                    <li><a href="/ProductManage?currentPage=1">商品管理</a></li>
+                    <li><a href="/ProductInfo">商品上架</a></li>
                 </ul>
             </div>
 
             <div class="left_m">
                 <div class="left_m_t t_bg2">资讯中心</div>
                 <ul>
-                    <li><a href="http://www.asuk.top/EasyBuy_war/admin/news?action=queryNewsList">资讯列表</a></li>
+                    <li><a href="/Newslist?currentPage=1">资讯列表</a></li>
                 </ul>
             </div>
         </div>

@@ -154,7 +154,7 @@
                         <div class="ss_list_c">
                         	<ul>
                             	<li><a href="baidu.com">百度搜索</a></li>
-                                <li><a href="JD.<command>">京东超市</a></li>
+                                <li><a href="JD.com">京东超市</a></li>
                             </ul>
                         </div>
                     </div>
