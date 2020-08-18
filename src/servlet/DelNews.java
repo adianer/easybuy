@@ -1,24 +1,22 @@
 package servlet;
 
 
-import com.alibaba.fastjson.JSON;
-import pojo.ProductCategory;
-import servies.ProductCategoryservies;
+import servies.Newsservies;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-@WebServlet("/Classify")
-public class Classify extends HttpServlet {
-    public static ProductCategoryservies productCategoryservies;
+@WebServlet("/delnews")
+
+public class DelNews extends HttpServlet {
+    public static Newsservies newsservies;
     @Override
     public void init() throws ServletException {
-        productCategoryservies=new ProductCategoryservies();
+        newsservies=new Newsservies();
     }
 
     @Override
@@ -30,12 +28,11 @@ public class Classify extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html");
         request.setCharacterEncoding("utf-8");
-        response.setContentType("application/json");
-        List<ProductCategory> list = new ArrayList<ProductCategory>();
-        int parid=Integer.parseInt(request.getParameter("id"));
-        list=productCategoryservies.getClassify(request,parid);
-        response.getWriter().print(JSON.toJSONString(list));
-
+        int id=Integer.parseInt(request.getParameter("delid"));
+        int i=newsservies.delbyId(id);
+        response.getOutputStream().print(i);
     }
 }
+

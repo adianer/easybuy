@@ -1,8 +1,6 @@
 package servlet;
 
-import pojo.ProductCategory;
-import servies.ProductCategoryservies;
-import servies.Productservies;
+import servies.Newsservies;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,14 +11,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/ProductInfo")
-public class ProductInfo extends HttpServlet {
-    public static Productservies productservies;
+@WebServlet("/Newsinfo")
+public class NewsInfo extends HttpServlet {
+
+    public static Newsservies newsservies;
     @Override
     public void init() throws ServletException {
-        productservies=new Productservies();
+        newsservies=new Newsservies();
     }
-
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
@@ -35,18 +33,18 @@ public class ProductInfo extends HttpServlet {
         if (request.getSession().getAttribute("user")!=null){
             int id=0;
             if(request.getParameter("id")!=null) {
-               id = Integer.parseInt(request.getParameter("id"));
+                id = Integer.parseInt(request.getParameter("id"));
                 try {
-                    productservies.querybyId(request,id);
+                    newsservies.querybyId(request,id);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            request.getRequestDispatcher("Productinfo.jsp").forward(request, response);
+            request.getRequestDispatcher("Newsinfo.jsp").forward(request, response);
         }else {
             PrintWriter otu=response.getWriter();
             otu.print(" <script type='text/javascript'>alert('您还未登录，即将跳转至登录页面');\n" +
-                    "    window.location.href='Loginservlet.jsp'</script>");
+                    "    window.location.href='Login.jsp'</script>");
 
         }
     }

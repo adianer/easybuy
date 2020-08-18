@@ -1,5 +1,5 @@
 package servlet;
-import servies.Userservies;
+import servies.Newsservies;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +11,12 @@ import java.util.List;
 
 @WebServlet("/Easybuy")
 public class Easybuy extends HttpServlet {
+    public static Newsservies newsservies;
+    @Override
+    public void init() throws ServletException {
+        newsservies = new Newsservies();
+    }
+
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
@@ -21,6 +27,13 @@ public class Easybuy extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("utf-8");
         request.setCharacterEncoding("utf-8");
+        int num=1;
+        try {
+            newsservies.getshowlist(request,num);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         request.getRequestDispatcher("index.jsp").forward(request, response);
+
     }
 }

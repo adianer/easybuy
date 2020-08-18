@@ -100,6 +100,7 @@ public class ProductImp implements ProductDao {
         return i;
     }
 
+    //根据id查询
     @Override
     public Product querybyId(int id) {
         Product product=null;

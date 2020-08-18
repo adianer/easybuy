@@ -1,7 +1,9 @@
 package dao;
 
+import pojo.News;
 import util.Page;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface NewsDao {
@@ -19,4 +21,6 @@ public interface NewsDao {
 
     //修改商品
     public int updataNews(List<Object> objects );
+    //根据id查询
+    public News querybyId(int id) throws SQLException;
 }

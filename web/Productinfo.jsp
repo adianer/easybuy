@@ -122,8 +122,8 @@
         </span>
         <!--End 所在收货地区 End-->
         <span class="fr">
-      <span class="fl">你好，<c:if test="${sessionScope.user.userName==null}">请<a href="/Easybuy/Login">登录</a></c:if>
-        <c:if test="${sessionScope.user.userName!=null}"><a href="/Easybuy/Login">${sessionScope.user.userName}</a></c:if>&nbsp; <a href="/Easybuy/Regist" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="/myOrder">我的订单</a>&nbsp;|</span>
+      <span class="fl">你好，<c:if test="${sessionScope.user.userName==null}"><a href="Login.jsp"></a>请<a href="Login.jsp">登录</a></c:if>
+        <c:if test="${sessionScope.user.userName!=null}"><a href="user.jsp">${sessionScope.user.userName}</a></c:if>&nbsp; <a href="Regist.jsp" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="/myOrder">我的订单</a>&nbsp;|</span>
             <span class="fl">|&nbsp;<a href="http://www.asuk.top/EasyBuy_war/admin/product?action=index&amp;userId=2">后台管理</a>&nbsp;</span>
              <span class="fl">|&nbsp;<a href="http://www.asuk.top/EasyBuy_war/Login?action=loginOut">注销</a></span>
         </span>
@@ -213,90 +213,76 @@
             </div>
         </div>
         <div class="m_right" id="content">
-                <div class="mem_tit">资讯列表
-                    <div style="float: right ;padding-right: 30px;height: 50px;">
-                        <input style="margin-top: 10px;background-color: #ff4e00; border: 0;color: white; " type="button"  value="添加新闻" onclick="location='/Newsinfo'"/>
-                  </div>
-                    <p align="right">
+            <div class="mem_tit">
+                 添加商品
+             </div>
+             <br>
+            <form action="/addProduct" method="post" id="productAdd" enctype="multipart/form-data">
+                <table border="0" class="add_tab" style="width:930px;" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td width="135" align="right">一级分类</td>
+                        <td colspan="3" style="font-family:'宋体';">
+                            <select name="categoryLevel1Id"  style="background-color:#f6f6f6;" id="productCategoryLevel1"  onchange="change222()">
+                                <option value="${requestScope.productinfo.categoryLevel1Id}" selected="selected">请选择...</option>
 
-                    </p>
-                </div>
-
-                <br>
-                <table border="0" table-layout="fixed" class="order_tab"
-                       style="width:930px; text-align:center;
-                        margin-bottom:30px;" cellspacing="0" cellpadding="0"
-                >
-                    <tbody>
-                    <tr>
-                        <td width="10%">新闻标题</td>
-                        <td width="10%">新闻内容</td>
-                        <td width="5%">更改时间</td>
-                        <td width="5%">更改人</td>
-                        <td width="10%" colspan="2">操作</td>
+                            </select>
+                        </td>
                     </tr>
-                    <form >
-                        <c:forEach items="${requestScope.newslist}" var="news" >
-                            <tr>
-                                <td width="10%">  <a href="/Newsinfo?id=${news.id}" target="_blank">
-                               <span>${news.title }</span> </a>
-                                </td>
-                                <td width="10%"  overflow="hidden" text-overflow="ellipsis">
-                                        ${news.content}
-                                </td>
-                                <td width="10%">
-                                        ${news.createTime}
-                                </td>
-                                <td width="5%">
-                                        ${news.user}
-                                </td>
-                                <td width="10%"><a href="/Newsinfo?id=${news.id}">修改</a> <a href="#" onclick="deleteById(${news.id})">删除</a></td>
-                            </tr>
-                        </c:forEach>
-                    </form>
-                    </tbody>
-                </table>
-            <div class="pages">
-                <c:choose>
-                    <c:when test="${page.pageCount <= 5}">
-                        <c:set var="begin" value="1"/>
-                        <c:set var="end" value="${page.pageCount}"/>
-                    </c:when>
-                    <%--页数超过了6页--%>
-                    <c:otherwise>
-                        <c:set var="begin" value="${page.pageNo-1}"/>
-                        <c:set var="end" value="${page.pageNo+2}"/>
-                        <%--如果begin减1后为0,设置起始页为1,最大页为6--%>
-                        <c:if test="${begin -1 <= 0}">
-                            <c:set var="begin" value="1"/>
-                            <c:set var="end" value="5"/>
-                        </c:if>
-                        <%--如果end超过最大页,设置起始页=最大页-5--%>
-                        <c:if test="${end > page.pageCount}">
-                            <c:set var="begin" value="${page.pageCount - 3}"/>
-                            <c:set var="end" value="${page.pageCount}"/>
-                        </c:if>
-                    </c:otherwise>
-                </c:choose>
-                <a href="/Newslist?currentPage=1" class="p_pre">首页</a>
-                <c:if test="${page.pageNo>0}">
-                    <a href="/Newslist?currentPage=${page.pageNo-1}" class="p_pre">上一页</a>
-                </c:if>
-                <c:forEach var="i" begin="${begin}" end="${end}">
-                    <%--当前页,选中--%>
-                    <a href="/Newslist?currentPage=${i}" <c:if test="${(page.pageNo)==i}">style="background-color:#ff4e00"</c:if>>${i}</a>
-                </c:forEach>
-                <c:if test="${page.pageNo<page.pageCount}">
-                    <a href="/Newslist?currentPage=${page.pageNo+1}" class="p_pre">下一页</a>
-                </c:if>
-                <a href="/Newslist?currentPage=${page.pageCount}" class="p_pre">尾页</a>
-            </div >
-            </div>
-
-                </tbody>
-            </table>
-
-
+                    <tr>
+                        <td width="135" align="right">二级分类</td>
+                        <td>
+                            <select name="categoryLevel2Id" style="background-color:#f6f6f6;" id="productCategoryLevel2" onchange="change333()">
+                                <option value="" selected="selected">请选择...</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">三级分类</td>
+                        <td>
+                            <select name="categoryLevel3Id"  style="background-color:#f6f6f6;" id="productCategoryLevel3">
+                                <option value="" selected="selected">请选择...</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">商品名称</td>
+                        <td>
+                            <input type="text" value="${requestScope.productinfo.name}" class="add_ipt" name="name" id="name">（必填）
+                            <input type="hidden" name="id" value="${requestScope.productinfo.id}" id="id">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">商品图片</td>
+                        <td>
+                            <input type="file" class="text" name="photo" value="${requestScope.productinfo.fileName}" id="fileName" onchange="upload()"><span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">单价</td>
+                        <td>
+                            <input type="text" value="${requestScope.productinfo.price}" class="add_ipt" name="price" id="price">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">库存</td>
+                        <td>
+                            <input type="text" value="${requestScope.productinfo.stock}" class="add_ipt" name="stock" id="stock">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">描述</td>
+                        <td>
+                            <textarea name="description"  id="description">${requestScope.productinfo.description}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" value="商品上架" class="s_btn">
+                        </td>
+                    </tr>
+                    </tbody></table>
+            </form>
         </div>
     </div>
      <div class="b_btm_bg" id="footer">
@@ -328,8 +314,7 @@
             </div>
         </div>
     </div>
-
-    <div class="b_nav">
+     <div class="b_nav">
         <dl>
             <dt><a href="javascript:void(0)">新手上路</a></dt>
             <dd><a href="javascript:void(0)">售后流程</a></dd>
@@ -371,7 +356,7 @@
             </p>
         </div>
         <div class="b_er">
-            <div class="b_er_c"><img src="images/er.gif" width="118" height="118"></div>
+            <div class="b_er_c"><img src="images/er.png" width="118" height="118"></div>
             <img src="images/ss.png">
         </div>
     </div>
@@ -383,25 +368,79 @@
     </div>
 </div>
 <script type="text/javascript">
-    function deleteById(id) {
+    function change111() {
+        var id=0;
+        var sele=document.getElementById("productCategoryLevel1")
         $.ajax({type:"post",
             data:{
-                delid:id
+                id:id
             },
-            url:"/delnews",
+            datatype:"json" ,
+            url:"Classify",
             async:true,
             success:function(result){
-                if(result==1){
-                    alert("删除成功")
-                    window.location.reload();
-                }else {
-                    alert("网络繁忙")
-                }
-            }});
+                    console.log(result);
+                    for(var i = 0;i < result.length; i++){
+                        sele.innerHTML += "<option value=\""+result[i].id+"\">"+result[i].name+"</option>";
+                    }
 
+            }});
+     }
+    function change222() {
+        var id=document.getElementById("productCategoryLevel1").value;
+        var sele=document.getElementById("productCategoryLevel2");
+        sele.innerHTML=" <option value=\"\" selected=\"selected\">请选择...</option>";
+        $.ajax({type:"post",
+            data:{
+                id:id
+            },
+            datatype:"json" ,
+            url:"Classify",
+            async:true,
+            success:function(result){
+                console.log(result);
+                for(var i = 0;i < result.length; i++){
+                    sele.innerHTML += "<option value=\""+result[i].id+"\">"+result[i].name+"</option>";
+                }
+
+            }});
+    }
+    function change333() {
+        var id=document.getElementById("productCategoryLevel2").value;
+        var sele=document.getElementById("productCategoryLevel3");
+        sele.innerHTML=" <option value=\"\" selected=\"selected\">请选择...</option>";
+        $.ajax({type:"post",
+            data:{
+                id:id
+            },
+            datatype:"json" ,
+            url:"Classify",
+            async:true,
+            success:function(result){
+                console.log(result);
+                for(var i = 0;i < result.length; i++){
+                    sele.innerHTML += "<option value=\""+result[i].id+"\">"+result[i].name+"</option>";
+                }
+
+            }});
+    }
+     window.onload=change111();
+    function upload() {
+        var formData = new FormData();
+        var file = document.getElementById('fileName').files[0];
+        formData.append("file", file);
+        $.ajax({type:"post",
+            data: formData,
+            datatype:"json" ,
+            url:"upload",
+            processData: false,
+            contentType: false,
+            async:true,
+            success:function(result){
+              $("#productAdd").attr("enctype","application/x-www-form-urlencoded")
+            }});
     }
 </script>
 </body>
-
-</html>
-
+ </html>
+ 

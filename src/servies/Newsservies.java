@@ -21,7 +21,7 @@ public class Newsservies {
         }
         list=newsDao.getshowlist(page);
         request.setAttribute("page",page);
-        request.setAttribute("news",list);
+        request.setAttribute("newslist",list);
     }
     //添加分类
     public int inserNews(List<Object> objects){
@@ -34,5 +34,22 @@ public class Newsservies {
         int i=0;
         i=newsDao.deleteNews(id);
         return i;
+    }
+    //修改商品
+    public int updataNews(List<Object> objects){
+        int i=0;
+        i=newsDao.updataNews(objects);
+        return i;
+    }
+    //根据id查询
+    public News querybyId( HttpServletRequest request, int id){
+       News news=null;
+        try {
+            news=newsDao.querybyId(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        request.setAttribute("news", news);
+        return news;
     }
 }

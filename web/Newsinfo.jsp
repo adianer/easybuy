@@ -1,6 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
   User: Admin
+  Date: 2020/8/5
+  Time: 18:48
+  To change this template use File | Settings | File Templates.
+--%>
+<%--
+  Created by IntelliJ IDEA.
+  User: Admin
   Date: 2020/7/18
   Time: 12:12
   To change this template use File | Settings | File Templates.
@@ -122,8 +129,8 @@
         </span>
         <!--End 所在收货地区 End-->
         <span class="fr">
-      <span class="fl">你好，<c:if test="${sessionScope.user.userName==null}">请<a href="/Easybuy/Login">登录</a></c:if>
-        <c:if test="${sessionScope.user.userName!=null}"><a href="/Easybuy/Login">${sessionScope.user.userName}</a></c:if>&nbsp; <a href="/Easybuy/Regist" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="/myOrder">我的订单</a>&nbsp;|</span>
+      <span class="fl">你好，<c:if test="${sessionScope.user.userName==null}"><a href="Login.jsp"></a>请<a href="Login.jsp">登录</a></c:if>
+        <c:if test="${sessionScope.user.userName!=null}"><a href="user.jsp">${sessionScope.user.userName}</a></c:if>&nbsp; <a href="Regist.jsp" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="/myOrder">我的订单</a>&nbsp;|</span>
             <span class="fl">|&nbsp;<a href="http://www.asuk.top/EasyBuy_war/admin/product?action=index&amp;userId=2">后台管理</a>&nbsp;</span>
              <span class="fl">|&nbsp;<a href="http://www.asuk.top/EasyBuy_war/Login?action=loginOut">注销</a></span>
         </span>
@@ -213,195 +220,117 @@
             </div>
         </div>
         <div class="m_right" id="content">
-                <div class="mem_tit">资讯列表
-                    <div style="float: right ;padding-right: 30px;height: 50px;">
-                        <input style="margin-top: 10px;background-color: #ff4e00; border: 0;color: white; " type="button"  value="添加新闻" onclick="location='/Newsinfo'"/>
-                  </div>
-                    <p align="right">
-
-                    </p>
-                </div>
-
-                <br>
-                <table border="0" table-layout="fixed" class="order_tab"
-                       style="width:930px; text-align:center;
-                        margin-bottom:30px;" cellspacing="0" cellpadding="0"
-                >
-                    <tbody>
+            <div class="mem_tit">
+                添加新闻
+            </div>
+            <br>
+            <form action="/addnews" method="post" id="newsAdd" >
+                <table border="0" class="add_tab" style="width:930px;" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td width="135" align="right">新闻标题</td>
+                        <td colspan="3" style="font-family:'宋体';">
+                           <input type="text" name="title" id="title" value="${requestScope.news.title}"/>
+                        </td>
+                    </tr>
+                    <input type="hidden" name="id" value="${requestScope.news.id}" id="id">
                     <tr>
-                        <td width="10%">新闻标题</td>
-                        <td width="10%">新闻内容</td>
-                        <td width="5%">更改时间</td>
-                        <td width="5%">更改人</td>
-                        <td width="10%" colspan="2">操作</td>
+                        <td width="135" align="right">新闻内容</td>
+                        <td>
+                            <textarea rows="5" cols="40" name="content" >${requestScope.news.content}</textarea>
+                        </td>
                     </tr>
-                    <form >
-                        <c:forEach items="${requestScope.newslist}" var="news" >
-                            <tr>
-                                <td width="10%">  <a href="/Newsinfo?id=${news.id}" target="_blank">
-                               <span>${news.title }</span> </a>
-                                </td>
-                                <td width="10%"  overflow="hidden" text-overflow="ellipsis">
-                                        ${news.content}
-                                </td>
-                                <td width="10%">
-                                        ${news.createTime}
-                                </td>
-                                <td width="5%">
-                                        ${news.user}
-                                </td>
-                                <td width="10%"><a href="/Newsinfo?id=${news.id}">修改</a> <a href="#" onclick="deleteById(${news.id})">删除</a></td>
-                            </tr>
-                        </c:forEach>
-                    </form>
-                    </tbody>
-                </table>
-            <div class="pages">
-                <c:choose>
-                    <c:when test="${page.pageCount <= 5}">
-                        <c:set var="begin" value="1"/>
-                        <c:set var="end" value="${page.pageCount}"/>
-                    </c:when>
-                    <%--页数超过了6页--%>
-                    <c:otherwise>
-                        <c:set var="begin" value="${page.pageNo-1}"/>
-                        <c:set var="end" value="${page.pageNo+2}"/>
-                        <%--如果begin减1后为0,设置起始页为1,最大页为6--%>
-                        <c:if test="${begin -1 <= 0}">
-                            <c:set var="begin" value="1"/>
-                            <c:set var="end" value="5"/>
-                        </c:if>
-                        <%--如果end超过最大页,设置起始页=最大页-5--%>
-                        <c:if test="${end > page.pageCount}">
-                            <c:set var="begin" value="${page.pageCount - 3}"/>
-                            <c:set var="end" value="${page.pageCount}"/>
-                        </c:if>
-                    </c:otherwise>
-                </c:choose>
-                <a href="/Newslist?currentPage=1" class="p_pre">首页</a>
-                <c:if test="${page.pageNo>0}">
-                    <a href="/Newslist?currentPage=${page.pageNo-1}" class="p_pre">上一页</a>
-                </c:if>
-                <c:forEach var="i" begin="${begin}" end="${end}">
-                    <%--当前页,选中--%>
-                    <a href="/Newslist?currentPage=${i}" <c:if test="${(page.pageNo)==i}">style="background-color:#ff4e00"</c:if>>${i}</a>
-                </c:forEach>
-                <c:if test="${page.pageNo<page.pageCount}">
-                    <a href="/Newslist?currentPage=${page.pageNo+1}" class="p_pre">下一页</a>
-                </c:if>
-                <a href="/Newslist?currentPage=${page.pageCount}" class="p_pre">尾页</a>
-            </div >
-            </div>
 
-                </tbody>
-            </table>
-
-
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" value="确定" class="s_btn">
+                        </td>
+                    </tr>
+                    </tbody></table>
+            </form>
         </div>
     </div>
-     <div class="b_btm_bg" id="footer">
-            <div class="b_btm">
-                <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
-                    <tbody><tr>
-                        <td width="72"><img src="images/b1.png" width="62" height="62"></td>
-                        <td><h2>正品保障</h2>正品行货  放心购买</td>
-                    </tr>
-                    </tbody></table>
-                <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
-                    <tbody><tr>
-                        <td width="72"><img src="images/b2.png" width="62" height="62"></td>
-                        <td><h2>满38包邮</h2>满38包邮 免运费</td>
-                    </tr>
-                    </tbody></table>
-                <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
-                    <tbody><tr>
-                        <td width="72"><img src="images/b3.png" width="62" height="62"></td>
-                        <td><h2>天天低价</h2>天天低价 畅选无忧</td>
-                    </tr>
-                    </tbody></table>
-                <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
-                    <tbody><tr>
-                        <td width="72"><img src="images/b4.png" width="62" height="62"></td>
-                        <td><h2>准时送达</h2>收货时间由你做主</td>
-                    </tr>
-                    </tbody></table>
-            </div>
-        </div>
-    </div>
-
-    <div class="b_nav">
-        <dl>
-            <dt><a href="javascript:void(0)">新手上路</a></dt>
-            <dd><a href="javascript:void(0)">售后流程</a></dd>
-            <dd><a href="javascript:void(0)">购物流程</a></dd>
-            <dd><a href="javascript:void(0)">订购方式</a></dd>
-            <dd><a href="javascript:void(0)">隐私声明</a></dd>
-            <dd><a href="javascript:void(0)">推荐分享说明</a></dd>
-        </dl>
-        <dl>
-            <dt><a href="javascript:void(0)">配送与支付</a></dt>
-            <dd><a href="javascript:void(0)">货到付款区域</a></dd>
-            <dd><a href="javascript:void(0)">配送支付查询</a></dd>
-            <dd><a href="javascript:void(0)">支付方式说明</a></dd>
-        </dl>
-        <dl>
-            <dt><a href="javascript:void(0)">会员中心</a></dt>
-            <dd><a href="javascript:void(0)">资金管理</a></dd>
-            <dd><a href="javascript:void(0)">我的收藏</a></dd>
-            <dd><a href="javascript:void(0)">我的订单</a></dd>
-        </dl>
-        <dl>
-            <dt><a href="javascript:void(0)">服务保证</a></dt>
-            <dd><a href="javascript:void(0)">退换货原则</a></dd>
-            <dd><a href="javascript:void(0)">售后服务保证</a></dd>
-            <dd><a href="javascript:void(0)">产品质量保证</a></dd>
-        </dl>
-        <dl>
-            <dt><a href="javascript:void(0)">联系我们</a></dt>
-            <dd><a href="javascript:void(0)">网站故障报告</a></dd>
-            <dd><a href="javascript:void(0)">购物咨询</a></dd>
-            <dd><a href="javascript:void(0)">投诉与建议</a></dd>
-        </dl>
-        <div class="b_tel_bg">
-            <a href="javascript:void(0)" class="b_sh1">新浪微博</a>
-            <a href="javascript:void(0)" class="b_sh2">腾讯微博</a>
-            <p>
-                服务热线：<br>
-                <span>400-123-4567</span>
-            </p>
-        </div>
-        <div class="b_er">
-            <div class="b_er_c"><img src="images/er.gif" width="118" height="118"></div>
-            <img src="images/ss.png">
-        </div>
-    </div>
-    <div class="btmbg">
-        <div class="btm">
-            备案/许可证编号：蜀ICP备12009302号-1-www.dingguagua.com   Copyright © 2015-2018 易买网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br>
-            <img src="images/b_1.gif" width="98" height="33"><img src="images/b_2.gif" width="98" height="33"><img src="images/b_3.gif" width="98" height="33"><img src="images/b_4.gif" width="98" height="33"><img src="images/b_5.gif" width="98" height="33"><img src="images/b_6.gif" width="98" height="33">
+    <div class="b_btm_bg" id="footer">
+        <div class="b_btm">
+            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                <tbody><tr>
+                    <td width="72"><img src="images/b1.png" width="62" height="62"></td>
+                    <td><h2>正品保障</h2>正品行货  放心购买</td>
+                </tr>
+                </tbody></table>
+            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                <tbody><tr>
+                    <td width="72"><img src="images/b2.png" width="62" height="62"></td>
+                    <td><h2>满38包邮</h2>满38包邮 免运费</td>
+                </tr>
+                </tbody></table>
+            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                <tbody><tr>
+                    <td width="72"><img src="images/b3.png" width="62" height="62"></td>
+                    <td><h2>天天低价</h2>天天低价 畅选无忧</td>
+                </tr>
+                </tbody></table>
+            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                <tbody><tr>
+                    <td width="72"><img src="images/b4.png" width="62" height="62"></td>
+                    <td><h2>准时送达</h2>收货时间由你做主</td>
+                </tr>
+                </tbody></table>
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function deleteById(id) {
-        $.ajax({type:"post",
-            data:{
-                delid:id
-            },
-            url:"/delnews",
-            async:true,
-            success:function(result){
-                if(result==1){
-                    alert("删除成功")
-                    window.location.reload();
-                }else {
-                    alert("网络繁忙")
-                }
-            }});
-
-    }
-</script>
+<div class="b_nav">
+    <dl>
+        <dt><a href="javascript:void(0)">新手上路</a></dt>
+        <dd><a href="javascript:void(0)">售后流程</a></dd>
+        <dd><a href="javascript:void(0)">购物流程</a></dd>
+        <dd><a href="javascript:void(0)">订购方式</a></dd>
+        <dd><a href="javascript:void(0)">隐私声明</a></dd>
+        <dd><a href="javascript:void(0)">推荐分享说明</a></dd>
+    </dl>
+    <dl>
+        <dt><a href="javascript:void(0)">配送与支付</a></dt>
+        <dd><a href="javascript:void(0)">货到付款区域</a></dd>
+        <dd><a href="javascript:void(0)">配送支付查询</a></dd>
+        <dd><a href="javascript:void(0)">支付方式说明</a></dd>
+    </dl>
+    <dl>
+        <dt><a href="javascript:void(0)">会员中心</a></dt>
+        <dd><a href="javascript:void(0)">资金管理</a></dd>
+        <dd><a href="javascript:void(0)">我的收藏</a></dd>
+        <dd><a href="javascript:void(0)">我的订单</a></dd>
+    </dl>
+    <dl>
+        <dt><a href="javascript:void(0)">服务保证</a></dt>
+        <dd><a href="javascript:void(0)">退换货原则</a></dd>
+        <dd><a href="javascript:void(0)">售后服务保证</a></dd>
+        <dd><a href="javascript:void(0)">产品质量保证</a></dd>
+    </dl>
+    <dl>
+        <dt><a href="javascript:void(0)">联系我们</a></dt>
+        <dd><a href="javascript:void(0)">网站故障报告</a></dd>
+        <dd><a href="javascript:void(0)">购物咨询</a></dd>
+        <dd><a href="javascript:void(0)">投诉与建议</a></dd>
+    </dl>
+    <div class="b_tel_bg">
+        <a href="javascript:void(0)" class="b_sh1">新浪微博</a>
+        <a href="javascript:void(0)" class="b_sh2">腾讯微博</a>
+        <p>
+            服务热线：<br>
+            <span>400-123-4567</span>
+        </p>
+    </div>
+    <div class="b_er">
+        <div class="b_er_c"><img src="images/er.png" width="118" height="118"></div>
+        <img src="images/ss.png">
+    </div>
+</div>
+<div class="btmbg">
+    <div class="btm">
+        备案/许可证编号：蜀ICP备12009302号-1-www.dingguagua.com   Copyright © 2015-2018 易买网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br>
+        <img src="images/b_1.gif" width="98" height="33"><img src="images/b_2.gif" width="98" height="33"><img src="images/b_3.gif" width="98" height="33"><img src="images/b_4.gif" width="98" height="33"><img src="images/b_5.gif" width="98" height="33"><img src="images/b_6.gif" width="98" height="33">
+    </div>
+</div>
+</div>
 </body>
-
 </html>
-

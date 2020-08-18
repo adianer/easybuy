@@ -43,7 +43,7 @@ public class NewsList extends HttpServlet {
         }else {
             PrintWriter otu=response.getWriter();
             otu.print(" <script type='text/javascript'>alert('您还未登录，即将跳转至登录页面');\n" +
-                    "    window.location.href='Loginservlet.jsp'</script>");
+                    "    window.location.href='/EasybuyLogin'</script>");
 
         }
     }

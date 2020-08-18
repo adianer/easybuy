@@ -208,7 +208,7 @@
                 <div class="left_m">
                 <div class="left_m_t t_bg2">资讯中心</div>
                 <ul>
-                    <li><a href="http://www.asuk.top/EasyBuy_war/admin/news?action=queryNewsList">资讯列表</a></li>
+                    <li><a href="/Newslist?currentPage=1">资讯列表</a></li>
                 </ul>
             </div>
         </div>
